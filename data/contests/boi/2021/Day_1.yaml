@@ -1,0 +1,19 @@
+name: BOI 2021
+location: Lübeck, Germany
+duration: 300
+website: https://www.boi2022.de/
+link: https://qoj.ac/contest/814
+problems:
+- source: boi
+  year: 2021
+  number: 1
+- source: boi
+  year: 2021
+  number: 2
+- source: boi
+  year: 2021
+  number: 3
+medalCutoffs:
+  gold: 152.5
+  silver: 102.5
+  bronze: 35.0

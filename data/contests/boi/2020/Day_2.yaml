@@ -1,0 +1,19 @@
+name: BOI 2020
+location: Ventspils, Latvia
+duration: 300
+website: https://www.boi2020.lv/
+link: https://qoj.ac/contest/483
+problems:
+- source: boi
+  year: 2020
+  number: 4
+- source: boi
+  year: 2020
+  number: 5
+- source: boi
+  year: 2020
+  number: 6
+medalCutoffs:
+  gold: 181.0
+  silver: 112.0
+  bronze: 70.0
