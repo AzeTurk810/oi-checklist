@@ -64,16 +64,39 @@ async function main() {
 
   // so we don't nuke problems without warning
   const dbProblems = await db.problem.findMany({ select: { source: true, year: true, number: true, extra: true, name: true, problemLinks: true } });
+  const dbLinks = await db.problemLink.findMany({
+    select: {
+      problemId: true,
+      platform: true,
+      url: true,
+      problem: { select: { source: true, year: true, number: true, extra: true, name: true } }
+    }
+  });
   const keys = new Set(problems.map(i => {
     return i.number ? `${i.source}|${i.year}|${i.number}|${i.extra ?? ''}` : `${i.name}|${i.source}|${i.year}|${i.extra ?? ''}`;
   }));
+  const yamlLinkKeys = new Set(
+    problems.flatMap(p =>
+      (p.links ?? []).map(l =>
+        `${p.source}|${p.year}|${p.number ?? p.name}|${p.extra ?? ''}|${(l as any).platform}|${(l as any).url}`
+      )
+    )
+  );
   const dbKeys = dbProblems.map(i => ({
     name: i.name, source: i.source, year: i.year, number: i.number, extra: i.extra,
     key: i.number ? `${i.source}|${i.year}|${i.number}|${i.extra}` : `${i.name}|${i.source}|${i.year}|${i.extra ?? ''}`
   }));
+  const dbLinkKeys = dbLinks.map(l => {
+    const p = l.problem;
+    return {
+      ...l,
+      key: `${p.source}|${p.year}|${p.number ?? p.name}|${p.extra ?? ''}|${l.platform}|${l.url}`
+    };
+  });
   const missing = dbKeys.filter(i => !keys.has(i.key)).map(i => ({
     name: i.name, source: i.source, year: i.year, extra: i.extra, number: i.number
   }));
+  const missingLinks = dbLinkKeys.filter(l => !yamlLinkKeys.has(l.key));
   if (missing.length > 0) {
     console.warn(`Found ${missing.length} problems in database not in yaml:`);
     console.log(missing);
@@ -91,6 +114,27 @@ async function main() {
       console.log(`Deleted ${missing.length} problems`);
     }
   }
+
+  if (missingLinks.length > 0) {
+    console.warn(`Found ${missingLinks.length} links in database not in yaml:`);
+    console.log(missingLinks);
+    const rl = readline.createInterface({ input: stdin, output: stdout });
+    const ans = await rl.question('Type "yes" to delete them: ');
+    rl.close();
+    if (ans === 'yes') {
+      await db.problemLink.deleteMany({
+        where: {
+          OR: missingLinks.map(l => ({
+            problemId: l.problemId,
+            platform: l.platform,
+            url: l.url
+          }))
+        }
+      });
+      console.log(`Deleted ${missingLinks.length} links`);
+    }
+  }
+
 
   for (const i of problems) {
     const update = {

@@ -1,15 +1,12 @@
 - name: Monsters
   number: 1
   links:
-  - https://codedrills.io/contests/inoi-2024-final/problems/inoi2024-p1---monsters
   - https://codeforces.com/gym/106224/problem/A
 - name: Fertilizer
   number: 2
   links:
-  - https://codedrills.io/contests/inoi-2024-final/problems/inoi2024-p2---fertilizer
   - https://codeforces.com/gym/106224/problem/B
 - name: Trees
   number: 3
   links:
-  - https://codedrills.io/contests/inoi-2024-final/problems/inoi2024-p3---trees
   - https://codeforces.com/gym/106224/problem/C
