@@ -1,0 +1,8 @@
+- name: Queue
+  number: 1
+  links:
+  - https://codechef.com/practice/course/zco-inoi-problems/ZCOPRAC/problems/ZCO26P1
+- name: Rows
+  number: 2
+  links:
+  - https://codechef.com/practice/course/zco-inoi-problems/ZCOPRAC/problems/ZCO26P2
