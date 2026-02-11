@@ -26,7 +26,7 @@ export async function scores(app: FastifyInstance) {
     // exclude private scores (like ICO)
     for (let i of data) {
       if (i.scores?.isPrivate) {
-        i.scores = null;
+        i.scores.problemScores = null;
       }
       // append user context
       if (i.userContext) {

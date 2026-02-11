@@ -142,17 +142,16 @@ function displayContests(contests, contestData, problemsData, contestScores) {
 }
 
 function createContestItem(contest, contestData, problemsData, contestScores) {
-  console.log(contest);
-  console.log(contestData);
-  console.log('problemsData: ', problemsData);
-  console.log(contestScores);
+  // console.log(contest);
+  // console.log(contestData);
+  // console.log('problemsData: ', problemsData);
+  // console.log(contestScores);
   const item = document.createElement('div');
   item.className = 'vc-history-item';
 
   // Calculate medal type
   // Calculate medal type (supports gold/silver/bronze or gold/prizer)
   const scoreData = contestScores[contest.contestId];
-  console.log('scoreData: ', scoreData);
   let medalClass = '';
   let medalText = '';
 
@@ -222,7 +221,6 @@ function createContestItem(contest, contestData, problemsData, contestScores) {
 
   // Calculate problem count and max score
   const problemScores = contest.perProblemScores;
-  console.log('problemScores: ', problemScores);
   const problemCount = problemScores.length;
   const maxScore = problemCount * 100;
   const scoreRate = Math.round((contest.score / maxScore) * 100);
@@ -240,8 +238,6 @@ function createContestItem(contest, contestData, problemsData, contestScores) {
   if (problemScores.length > 0) {
     const maxScore = Math.max(...problemScores);
     const maxIndex = problemScores.indexOf(maxScore);
-
-    console.log('maxScore: ', maxScore, '; maxIndex: ', maxIndex);
 
     // Get actual problem name
     let id = contest.contest.problems.find(i => i.problemIndex == maxIndex).problemId;
