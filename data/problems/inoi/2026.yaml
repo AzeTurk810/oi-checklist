@@ -1,0 +1,12 @@
+- name: Diff by 2
+  number: 1
+  links:
+  - https://codechef.com/INOIPRAC/problems/INOI26P0
+- name: Smaller Sum
+  number: 2
+  links:
+  - https://codechef.com/INOIPRAC/problems/INOI26P1
+- name: Tree Sum
+  number: 3
+  links:
+  - https://codechef.com/INOIPRAC/problems/INOI26P2
