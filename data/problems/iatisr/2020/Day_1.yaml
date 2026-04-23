@@ -1,0 +1,12 @@
+- name: hunterxhunter
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/654?list_id=232
+- name: sqsort
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/655?list_id=232
+- name: mathcingcolors
+  number: 3
+  links:
+    - https://kilonova.ro/problems/656?list_id=232

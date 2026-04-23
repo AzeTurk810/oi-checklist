@@ -1,0 +1,16 @@
+name: JOISC 2020
+location: Komaba, Tokyo
+duration: 300
+website: https://contests.ioi-jp.org/joi-sp-2020/index-en
+link: https://oj.uz/problems/source/joisc2020day1
+problems:
+- source: joisc
+  year: 2020
+  number: 1
+- source: joisc
+  year: 2020
+  number: 2
+- source: joisc
+  year: 2020
+  number: 3
+

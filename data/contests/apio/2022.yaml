@@ -1,0 +1,19 @@
+name: APIO 2022
+location: China
+duration: 300
+website: https://apio2022.org/
+link: https://oj.uz/problems/source/apio2022
+problems:
+- source: apio
+  year: 2022
+  number: 1
+- source: apio
+  year: 2022
+  number: 2
+- source: apio
+  year: 2022
+  number: 3
+medalCutoffs:
+  gold: 207.7
+  silver: 174
+  bronze: 165.36

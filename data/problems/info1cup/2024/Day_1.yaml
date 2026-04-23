@@ -1,0 +1,12 @@
+- name: Gregor and maximum length
+  number: 1
+  links:
+      - https://kilonova.ro/problems/2460?list_id=1034
+- name: Ping-Pong
+  number: 2
+  links:
+      - https://kilonova.ro/problems/2494?list_id=1034
+- name: XORsecv
+  number: 3
+  links:
+      - https://kilonova.ro/problems/2496?list_id=1034

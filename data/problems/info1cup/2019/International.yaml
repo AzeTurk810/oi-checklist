@@ -1,0 +1,20 @@
+- name: cat
+  number: 1
+  links:
+      - https://kilonova.ro/problems/3443?list_id=1305
+      - https://oj.uz/problem/view/info1cup19_cat
+- name: consul
+  number: 2
+  links:
+      - https://kilonova.ro/problems/3444?list_id=1305
+      - https://oj.uz/problem/view/info1cup19_consul
+- name: costinland
+  number: 3
+  links:
+      - https://kilonova.ro/problems/3445?list_id=1305
+      - https://oj.uz/problem/view/info1cup19_costinland
+- name: mouse
+  number: 4
+  links:
+      - https://kilonova.ro/problems/3446?list_id=1305
+      - https://oj.uz/problem/view/info1cup19_mouse

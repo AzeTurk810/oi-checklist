@@ -1,0 +1,15 @@
+name: APIO 2021
+location: China
+duration: 300
+website: https://apio2021.org/
+link: https://oj.uz/problems/source/apio2021
+problems:
+- source: apio
+  year: 2021
+  number: 1
+- source: apio
+  year: 2021
+  number: 2
+- source: apio
+  year: 2021
+  number: 3

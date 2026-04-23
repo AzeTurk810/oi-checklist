@@ -1,0 +1,21 @@
+- name: cambridge
+  number: 5
+  links:
+      - https://kilonova.ro/problems/3447?list_id=1307
+- name: norela
+  number: 6
+  links:
+      - https://kilonova.ro/problems/3448?list_id=1307
+- name: palindromes
+  number: 7
+  links:
+      - https://kilonova.ro/problems/3449?list_id=1307
+- name: shell
+  number: 8
+  links:
+      - https://kilonova.ro/problems/3450?list_id=1307
+- name: thegrade
+  number: 9
+  links:
+      - https://kilonova.ro/problems/3451?list_id=1307
+

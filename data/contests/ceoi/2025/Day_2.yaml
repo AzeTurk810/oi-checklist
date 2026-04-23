@@ -1,0 +1,15 @@
+name: CEOI 2025
+location: Cluj-Napoca, Romania
+duration: 300
+website:  https://ceoi2025.utcluj.ro/
+link: https://oj.uz/problems/source/ceoi2025day2
+problems:
+- source: ceoi
+  year: 2025
+  number: 4
+- source: ceoi
+  year: 2025
+  number: 5
+- source: ceoi
+  year: 2025
+  number: 6

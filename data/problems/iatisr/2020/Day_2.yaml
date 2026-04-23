@@ -1,0 +1,13 @@
+- name: cancer
+  number: 4
+  links:
+    - https://kilonova.ro/problems/657?list_id=233
+- name: rectpoints
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/658?list_id=236
+- name: alpha
+  number: 6
+  links:
+      - https://kilonova.ro/problems/659?list_id=233
+

@@ -1,0 +1,13 @@
+- name: Game
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/427?list_id=1542
+- name: Sequences
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/428?list_id=1542
+- name: Valentines Day
+  number: 3
+  links:
+    - https://kilonova.ro/problems/429?list_id=1542
+

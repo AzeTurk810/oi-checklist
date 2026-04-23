@@ -1,0 +1,13 @@
+- name: connect
+  number: 4
+  links:
+    - https://kilonova.ro/problems/319?list_id=97
+- name: expedition
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/318?list_id=97
+- name: sorting
+  number: 6
+  links:
+      - https://kilonova.ro/problems/320?list_id=97
+

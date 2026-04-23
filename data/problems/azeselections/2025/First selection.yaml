@@ -1,0 +1,12 @@
+- name: GCD
+  number: 1
+  links:
+      - https://codeany.org/en/learn/archive/task/415
+- name: Trucks
+  number: 2
+  links:
+      - https://codeany.org/en/learn/archive/task/416
+- name: Ranking order
+  number: 3
+  links:
+      - https://codeany.org/en/learn/archive/task/417

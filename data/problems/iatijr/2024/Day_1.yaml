@@ -1,0 +1,12 @@
+- name: aquarelle
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/2628?list_id=1067
+- name: twins
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/2629?list_id=1067
+- name: walk
+  number: 3
+  links:
+    - https://kilonova.ro/problems/2630?list_id=1067

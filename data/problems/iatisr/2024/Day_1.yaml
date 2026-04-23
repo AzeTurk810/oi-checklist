@@ -1,0 +1,12 @@
+- name: ones
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/2631?list_id=1069
+- name: puzzle
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/2632?list_id=1069
+- name: five
+  number: 3
+  links:
+    - https://kilonova.ro/problems/2633?list_id=1069

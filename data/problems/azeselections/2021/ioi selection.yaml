@@ -1,0 +1,24 @@
+- name: Optimal Contest system
+  number: 1
+  links:
+      - https://codeany.org/en/learn/archive/task/240
+- name: Company
+  number: 2
+  links:
+      - https://codeany.org/en/learn/archive/task/241
+- name: Triplets
+  number: 3
+  links:
+      - https://codeany.org/en/learn/archive/task/242
+- name: Circular Game
+  number: 4
+  links:
+      - https://codeany.org/en/learn/archive/task/248
+- name: GCD
+  number: 5
+  links:
+      - https://codeany.org/en/learn/archive/task/249
+- name: Long Sequence 
+  number: 6
+  links:
+      - https://codeany.org/en/learn/archive/task/250

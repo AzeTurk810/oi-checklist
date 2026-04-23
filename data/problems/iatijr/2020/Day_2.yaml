@@ -1,0 +1,13 @@
+- name: biggest
+  number: 4
+  links:
+    - https://kilonova.ro/problems/666?list_id=236
+- name: rectpoints
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/658?list_id=236
+- name: maxs
+  number: 6
+  links:
+      - https://kilonova.ro/problems/667?list_id=236
+

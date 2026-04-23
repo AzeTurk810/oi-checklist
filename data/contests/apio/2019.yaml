@@ -1,0 +1,15 @@
+name: APIO 2019
+location: China,Hong Kong
+duration: 300
+website: https://apio2019.org/
+link: https://oj.uz/problems/source/apio2019
+problems:
+- source: apio
+  year: 2019
+  number: 1
+- source: apio
+  year: 2019
+  number: 2
+- source: apio
+  year: 2019
+  number: 3

@@ -1,0 +1,18 @@
+name: USACO Silver 2024
+location: USA (online)
+duration: 300
+website: https://usaco.org/
+problems:
+- source: usacosilver
+  year: 2024
+  number: 1
+  extra: Open
+- source: usacosilver
+  year: 2024
+  number: 2
+  extra: Open
+- source: usacosilver
+  year: 2024
+  number: 3
+  extra: Open
+promotionCutoff: 195

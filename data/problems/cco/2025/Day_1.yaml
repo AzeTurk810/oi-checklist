@@ -1,0 +1,12 @@
+- name: Asteroid Mining
+  number: 1
+  links:
+      - https://qoj.ac/contest/2192/problem/12411
+- name: Tree Decorations
+  number: 2
+  links:
+      - https://qoj.ac/contest/2192/problem/12412
+- name: Balanced Integer
+  number: 3
+  links:
+      - https://qoj.ac/contest/2192/problem/12413

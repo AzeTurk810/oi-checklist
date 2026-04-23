@@ -1,0 +1,17 @@
+- name: Bricks
+  number: 1
+  links:
+      -  https://www.info1cup.com/archive/2021/statements/bricks.pdf
+- name: Cool Rotation
+  number: 2
+  links:
+      - https://kilonova.ro/problems/335?list_id=39
+- name: Jumpy
+  number: 3
+  links:
+      - https://kilonova.ro/problems/249?list_id=39
+- name: Suborray Sort
+  number: 4
+  links:
+      - https://kilonova.ro/problems/251?list_id=39
+

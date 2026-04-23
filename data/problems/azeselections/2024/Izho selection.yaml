@@ -1,0 +1,16 @@
+- name: Rectangles
+  number: 1
+  links:
+      - https://codeany.org/en/learn/archive/task/259
+- name: Computer Network
+  number: 2
+  links:
+      - https://codeany.org/en/learn/archive/task/260
+- name: Perfocards
+  number: 3
+  links:
+      - https://codeany.org/en/learn/archive/task/261
+- name: Text Editor
+  number: 4
+  links:
+      - https://codeany.org/en/learn/archive/task/262

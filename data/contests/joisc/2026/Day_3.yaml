@@ -1,0 +1,14 @@
+name: JOISC 2026
+location: Komaba, Tokyo
+duration: 300
+website: https://contests.ioi-jp.org/joi-sp-2026/index-en
+problems:
+- source: joisc
+  year: 2026
+  number: 7
+- source: joisc
+  year: 2026
+  number: 8
+- source: joisc
+  year: 2026
+  number: 9

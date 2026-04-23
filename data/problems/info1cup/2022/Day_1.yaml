@@ -1,0 +1,17 @@
+- name: Sumex
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/238?list_id=136
+    - https://www.info1cup.com/archive/2022/sumex/statement.pdf
+- name: NiceSet
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/242?list_id=136
+    - https://www.info1cup.com/archive/2022/niceset/statement.pdf
+- name: Tennis
+  number: 3
+  links:
+    - https://kilonova.ro/problems/246?list_id=136
+    - https://www.info1cup.com/archive/2022/tennis/statement.pdf
+
+

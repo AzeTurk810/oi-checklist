@@ -1,0 +1,15 @@
+name: APIO 2024
+location: China
+duration: 300
+website: https://apio2024.org/
+link: https://oj.uz/problems/source/apio2024
+problems:
+- source: apio
+  year: 2024
+  number: 1
+- source: apio
+  year: 2024
+  number: 2
+- source: apio
+  year: 2024
+  number: 3

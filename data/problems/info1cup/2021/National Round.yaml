@@ -1,0 +1,12 @@
+- name: Fiboxor
+  number: 5
+  links:
+      - https://kilonova.ro/problems/421?list_id=125
+- name: Mirrored
+  number: 6
+  links:
+      - https://kilonova.ro/problems/3146?list_id=125
+- name: Wonderland
+  number: 7
+  links:
+      - https://kilonova.ro/problems/3147?list_id=125

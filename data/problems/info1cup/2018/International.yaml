@@ -1,0 +1,16 @@
+- name: MaxComp
+  number: 1
+  links:
+      - https://oj.uz/problem/view/info1cup18_maxcomp
+- name: DEL13
+  number: 2
+  links: 
+    - https://oj.uz/problem/view/info1cup18_del13
+- name: Hidden Sequence
+  number: 3
+  links:
+      - https://oj.uz/problem/view/info1cup18_hidden
+- name: Balanced Tree
+  number: 4
+  links:
+      - https://oj.uz/problem/view/info1cup18_balancedtree

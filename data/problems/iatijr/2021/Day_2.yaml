@@ -1,0 +1,13 @@
+- name: monopoly
+  number: 4
+  links:
+    - https://kilonova.ro/problems/387?list_id=116
+- name: cutting
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/388?list_id=116
+- name: sss
+  number: 6
+  links:
+      - https://kilonova.ro/problems/376?list_id=116
+

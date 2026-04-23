@@ -22,7 +22,8 @@ function check_session() {
 const olympiadIds = [
   'APIO', 'EGOI', 'INOI', 'ZCO', 'IOI', 'JOISC', 'JOIOC', 'IOITC', 'NOISEL',
   'NOIPRELIM', 'NOIQUAL', 'NOIFINAL', 'JOIFR', 'POI', 'CEOI', 'COI', 'BOI', 'USACO',
-  'GKS', 'EJOI', 'IZHO', 'ROI', 'BKOI', 'CNOI', 'COCI', 'RMI'
+  'GKS', 'EJOI', 'IZHO', 'ROI', 'BKOI', 'CNOI', 'COCI', 'RMI', 'IATIJR', 'IATISR', 'SPAINOI', 'INFO1CUP', 'AZESELECTIONS',
+    'CCO'
 ];
 
 const auto_synced_platforms = [
@@ -58,7 +59,13 @@ function getFullOlympiadName(id) {
     BKOI: 'Balkan Olympiad in Informatics',
     CNOI: 'Chinese National Olympiad in Informatics',
     COCI: 'Croatian Open Competition in Informatics',
-    RMI: 'Romanian Master of Informatics'
+    RMI: 'Romanian Master of Informatics',
+    IATIJR: 'International Advanced Tournament in Informatics - Junior',
+    IATISR: 'International Advanced Tournament in Informatics - Senior',
+    SPAINOI: 'Spain Olympiad in Informatics',
+    INFO1CUP: 'InfO(1)Cup',
+    AZESELECTIONS: 'Azerbaijan Selections for International Olympiads',
+    CCO : 'Canadian Computing Olympiad'
   };
   return names[id] || id;
 }

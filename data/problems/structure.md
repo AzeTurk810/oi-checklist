@@ -1,4 +1,7 @@
-
+# to add new
+change here: src/static/js/utils.js
+and here: src/config.ts
+and for prefix: js/dashboard.js
 
 # Problem Data Structure Guide
 

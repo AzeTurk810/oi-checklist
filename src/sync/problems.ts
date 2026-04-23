@@ -54,7 +54,7 @@ async function main() {
         ...p,
         source: source,
         year: parseInt(year),
-        extra: file.replace(/\.yaml$/i, '').replace('_', ' ')
+        extra: file.replace(/\.yaml$/i, '').replace(/_/g, ' ')
       }))))).flat();
       problems.push(...i);
     }

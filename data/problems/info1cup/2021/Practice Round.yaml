@@ -1,0 +1,8 @@
+- name: Palindrome
+  number: 8
+  links:
+      - https://kilonova.ro/problems/3144?list_id=1250
+- name: Subset Cheating
+  number: 9
+  links:
+      - https://kilonova.ro/problems/3145?list_id=1250

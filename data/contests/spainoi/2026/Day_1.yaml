@@ -1,0 +1,25 @@
+name: Spain 2026
+location: Spain
+duration: 240
+website: https://olimpiada-informatica.org/
+link: https://codeforces.com/gym/106487
+problems:
+- source: spainoi
+  year: 2026
+  number: 1
+- source: spainoi
+  year: 2026
+  number: 2
+- source: spainoi
+  year: 2026
+  number: 3
+- source: spainoi
+  year: 2026
+  number: 4
+- source: spainoi
+  year: 2026
+  number: 5
+# medalCutoffs:
+#   gold: 236.0
+#   silver: 222.0
+#   bronze: 200.0

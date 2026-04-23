@@ -1,0 +1,20 @@
+name: CCO 2025
+location: Canada
+duration: 300
+website: https://cemc.uwaterloo.ca/contests/ccc
+link: https://qoj.ac/contest/2192
+problems:
+- source: cco
+  year: 2025
+  number: 1
+- source: cco
+  year: 2025
+  number: 2
+- source: cco
+  year: 2025
+  number: 3
+medalCutoffs:
+  gold: 144
+  silver: 109
+  bronze: 62
+

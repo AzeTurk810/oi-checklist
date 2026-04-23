@@ -1,0 +1,19 @@
+name: IATIsr 2021
+location: Shumen, Bulgaria
+duration: 240
+website: https://iati-shu.org/
+link: https://kilonova.ro/problem_lists/89/progress
+problems:
+- source: iatisr
+  year: 2021
+  number: 4
+- source: iatisr
+  year: 2021
+  number: 5
+- source: iatisr
+  year: 2021
+  number: 6
+# medalCutoffs:
+#   gold: 236.0
+#   silver: 222.0
+#   bronze: 200.0

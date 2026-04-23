@@ -900,7 +900,8 @@ async function loadProblems(from) {
       }
     }
     const isGroupedByExtra = prefix === 'GKS' || isUsaco || was_joioc || prefix === 'EJOI'
-      || prefix === 'IZHO' || prefix === 'ROI' || prefix === 'BKOI' || prefix === 'IOI' || prefix === 'CNOI' || prefix === 'COCI' || prefix === 'RMI';
+      || prefix === 'IZHO' || prefix === 'ROI' || prefix === 'BKOI' || prefix === 'IOI' || prefix === 'CNOI' || prefix === 'COCI' || prefix === 'RMI'
+      || prefix === 'SPAINOI' || prefix === 'IATIJR' || prefix === 'IATISR' || prefix == 'INFO1CUP' || prefix == 'AZESELECTIONS';
 
     if (isGroupedByExtra) {
       // --- Year header row ---

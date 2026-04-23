@@ -1,0 +1,19 @@
+name: POI 2019
+location: Warsaw, Poland
+duration: 300
+website: https://oi.edu.pl/l/26oi_aktualnosci/
+link: https://qoj.ac/contest/80
+problems:
+- source: poi
+  year: 2019
+  number: 1
+- source: poi
+  year: 2019
+  number: 2
+- source: poi
+  year: 2019
+  number: 3
+medalCutoffs:
+  gold: 225
+  silver: 175
+  bronze: 110

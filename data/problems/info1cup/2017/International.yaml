@@ -1,0 +1,16 @@
+- name: Easter Eggs
+  number: 1
+  links:
+      - https://oj.uz/problem/view/info1cup17_eastereggs
+- name: XOR Sum 
+  number: 2
+  links:
+      - https://oj.uz/problem/view/info1cup17_xorsum
+- name: Binary Subsequences
+  number: 3
+  links:
+      - https://oj.uz/problem/view/info1cup17_binary
+- name: Permutation Recovery
+  number: 4
+  links:
+      - https://oj.uz/problem/view/info1cup17_permutation

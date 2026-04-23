@@ -1,0 +1,12 @@
+- name: Largest Island
+  number: 1
+  links:
+      - https://codeany.org/en/learn/archive/task/251
+- name: Greedy thief
+  number: 2
+  links:
+      - https://codeany.org/en/learn/archive/task/252
+- name: Boxes
+  number: 3
+  links:
+      - https://codeany.org/en/learn/archive/task/253

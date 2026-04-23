@@ -1,0 +1,12 @@
+- name: Modulo Sum
+  number: 4
+  links:
+      - https://kilonova.ro/problems/3541?list_id=1341
+- name: Divisors
+  number: 5
+  links:
+      - https://kilonova.ro/problems/3540?list_id=1341
+- name: Radio
+  number: 6
+  links:
+      - https://kilonova.ro/problems/3542?list_id=1341

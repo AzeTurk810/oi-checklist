@@ -1,0 +1,20 @@
+- name: mean
+  number: 5
+  links:
+      - https://kilonova.ro/problems/3421?list_id=1304
+- name: simple 
+  number: 6
+  links:
+      - https://kilonova.ro/problems/3424?list_id=1304
+- name: split 
+  number: 7
+  links:
+      - https://kilonova.ro/problems/3425?list_id=1304
+- name: subway
+  number: 8
+  links:
+      - https://kilonova.ro/problems/3425?list_id=1304
+- name: treasure
+  number: 9
+  links:
+      - https://kilonova.ro/problems/3427?list_id=1304

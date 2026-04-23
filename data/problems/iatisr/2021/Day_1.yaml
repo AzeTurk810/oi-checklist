@@ -1,0 +1,12 @@
+- name: heaps
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/235?list_id=90
+- name: miners
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/236?list_id=90
+- name: news
+  number: 3
+  links:
+    - https://kilonova.ro/problems/237?list_id=90

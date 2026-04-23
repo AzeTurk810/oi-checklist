@@ -1,0 +1,12 @@
+- name: coins
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/332?list_id=96
+- name: garden
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/333?list_id=96
+- name: rich_num
+  number: 3
+  links:
+    - https://kilonova.ro/problems/334?list_id=96

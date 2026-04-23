@@ -1,0 +1,13 @@
+- name: travel
+  number: 4
+  links:
+    - https://kilonova.ro/problems/2634?list_id=1070
+- name: game
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/2635?list_id=1070
+- name: lex_gcd
+  number: 6
+  links:
+      - https://kilonova.ro/problems/2636?list_id=1070
+

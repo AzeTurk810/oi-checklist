@@ -1,0 +1,19 @@
+name: POI 2018
+location: Warsaw, Poland
+duration: 300
+website: https://oi.edu.pl/l/25oi_aktualnosci/
+link: https://qoj.ac/contest/1061
+problems:
+- source: poi
+  year: 2018
+  number: 4
+- source: poi
+  year: 2018
+  number: 5
+- source: poi
+  year: 2018
+  number: 6
+medalCutoffs:
+  gold: 220
+  silver: 173
+  bronze: 92

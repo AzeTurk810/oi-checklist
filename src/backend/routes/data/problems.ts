@@ -52,6 +52,26 @@ export async function problems(app: FastifyInstance) {
         userProblemsData: hasAuth || user.settings?.checklistPublic ? { where: { userId: user.id } } : false
       }
     });
+//     // safety wrapper for picking a link from problem.links
+// function pickLink(links: any[] | undefined | null) {
+//   if (!Array.isArray(links) || links.length === 0) {
+//     return null;
+//   }
+//
+//   // filter out invalid entries (no url)
+//   const valid = links.filter((l) => l && typeof l.url === 'string' && l.url.length);
+//   if (valid.length === 0) return null;
+//
+//   // preferred order (adjust if project expects different order)
+//   const preferred = ['codeforces', 'atcoder', 'usaco', 'spoj', 'uva', 'github'];
+//   for (const name of preferred) {
+//     const found = valid.find((l) => l.site && typeof l.site === 'string' && l.site.toLowerCase().includes(name));
+//     if (found) return found;
+//   }
+//
+//   // fallback: return first valid
+//   return valid[0];
+// }
     function pickLink(links: ProblemLink[]): string {
       let pref = user.settings.platformPref as string[] ?? ['oj.uz', 'qoj.ac'];
       let chosen = pref.find(platform => links.some(link => link.platform == platform));

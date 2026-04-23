@@ -42,6 +42,21 @@ function decrypt(payload: string) {
   return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString('utf8');
 }
 
+function normalizeYear(i: ContestYAML): number {
+  // if year already exists and is a number, use it
+  if (i.year && !Number.isNaN(Number(i.year))) return Number(i.year);
+
+  // fallback: try to parse from date/startDate
+  const dateStr = i.date ?? i.problems?.[0]?.year?.toString();
+  if (dateStr) {
+    const d = new Date(dateStr);
+    if (!Number.isNaN(d.getTime())) return d.getFullYear();
+  }
+
+  // final fallback: current year
+  return new Date().getFullYear();
+}
+
 async function fileExists(path: string) {
   let ans = true;
   try {
@@ -133,10 +148,11 @@ async function main() {
     const ans = await rl.question('Type "yes" to delete them: ');
     rl.close();
     if (ans == 'yes') {
-      await db.problem.deleteMany({
+      await db.contest.deleteMany({
         where: {
           OR: missing.map(i => {
-            return i.stage ? { name: i.name, stage: i.stage } : { name: i.name }
+              return i.stage ? { name: i.name, stage: i.stage } : { name: i.name }
+            // return i.stage ? { name: i.name, stage: i.} : { name: i.name }
           })
         }
       });
@@ -149,7 +165,7 @@ async function main() {
   for (let contest of contests) {
     // problem check
     for (let problem of contest.problems) {
-      const dbProblem = await db.problem.findUnique({
+      let dbProblem = await db.problem.findUnique({
         where: {
           source_year_number_extra: {
             source: problem.source,
@@ -159,6 +175,18 @@ async function main() {
           }
         }
       });
+      if (!dbProblem && !problem.extra && contest.stage) {
+        dbProblem = await db.problem.findUnique({
+          where: {
+            source_year_number_extra: {
+              source: problem.source,
+              year: problem.year,
+              number: problem.number,
+              extra: contest.stage
+            }
+          }
+        });
+      }
       if (!dbProblem) {
         console.error(`Error: the following problem is not in the database. Did you forget to run problems.ts?\n`, problem);
         throw Error('Aborting due to data invalidity');
@@ -186,7 +214,10 @@ async function main() {
     }
   }
 
-  await Promise.all(contests.map(async i => {
+  for (const i of contests){
+      // await Promise.all(contests.map(async i => {
+      // const yearInt = normalizeYear(i);
+        // console.log(`[sync] upserting contest: ${i.name} ${i.stage ?? ''}`);
     const update = {
       name: i.name,
       stage: i.stage ?? '',
@@ -202,6 +233,7 @@ async function main() {
       ...(i.contextData ? { contextData: i.contextData } : {})
     };
     // create contest
+        // console.log(`[sync] upserting contest: ${i.name} ${i.stage ?? ''}`);
     const contest = await db.contest.upsert({
       where: { name_stage: { name: i.name, stage: i.stage ?? '' } },
       update, create: update
@@ -225,6 +257,7 @@ async function main() {
       isPrivate: boolean;
     };
     let data: ContestScoreData = { contestId: contest.id, medalNames: [], medalCutoffs: [], problemScores: i.scores, isPrivate: i.isPrivate };
+        // console.log(`[synce] upserting contest: ${i.name} ${i.stage ?? ''}`);
     if (!i.medalCutoffs) {
       console.warn(`[warn] contest ${i.name} ${i.stage ? i.stage : ''} does not have medalCutoffs`);
     } else {
@@ -237,7 +270,7 @@ async function main() {
       where: { contestId: contest.id },
       update: data, create: data
     });
-  }));
+  };
 
   console.log(`Updated database; new count: ${await db.contest.count()}`);
 }

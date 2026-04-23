@@ -9,14 +9,15 @@ export const Olympiads = new Set([
   'joifr', 'joioc', 'joisc', 'noifinal',
   'noiprelim', 'noiqual', 'noisel', 'poi', 'rmi',
   'roi', 'usacobronze', 'usacogold', 'usacoplatinum',
-  'usacosilver', 'zco', 'cnoi', 'coci'
+  'usacosilver', 'zco', 'cnoi', 'coci',
+  'iatisr', 'iatijr', 'spainoi', 'info1cup', 'azeselections', 'cco'
 ]);
 
 export const Platforms = new Set([
   'atcoder', 'baekjoon', 'cms', 'codebreaker',
   'codechef', 'codedrills', 'codeforces', 'dmoj',
   'oj.uz', 'qoj.ac', 'szkopuł', 'usaco',
-  'eolymp'
+  'eolymp', 'kilonova'
 ]);
 
 export const HostnameToPlatform: Record<string, string> = {
@@ -33,7 +34,8 @@ export const HostnameToPlatform: Record<string, string> = {
   'qoj.ac': 'qoj.ac',
   'szkopul.edu.pl': 'szkopuł',
   'usaco.org': 'usaco',
-  'eolymp.com': 'eolymp'
+  'eolymp.com': 'eolymp',
+  'kilonova.ro' : 'kilonova'
 }
 
 export const root = path.resolve(__dirname, '..');

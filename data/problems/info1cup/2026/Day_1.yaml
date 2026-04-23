@@ -1,0 +1,12 @@
+- name: Triangulation
+  number: 1
+  links:
+      - https://kilonova.ro/problems/4161?list_id=1542
+- name: Digit Sum
+  number: 2
+  links:
+      - https://kilonova.ro/problems/4159?list_id=1542
+- name: Training
+  number: 3
+  links:
+      - https://kilonova.ro/problems/4160?list_id=1542

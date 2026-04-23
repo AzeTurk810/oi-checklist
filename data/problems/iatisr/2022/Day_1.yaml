@@ -1,0 +1,12 @@
+- name: cubes
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/311?list_id=92
+- name: ones
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/312?list_id=92
+- name: divide
+  number: 3
+  links:
+    - https://kilonova.ro/problems/314?list_id=92

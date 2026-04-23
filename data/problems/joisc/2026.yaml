@@ -1,0 +1,60 @@
+- name: Legendary Dango Eater
+  number: 1
+  links:
+  - https://oj.uz/problem/view/JOI26_dango
+  - https://qoj.ac/problem/17701
+- name: Garden 3
+  number: 2
+  links:
+  - https://oj.uz/problem/view/JOI26_garden
+  - https://qoj.ac/problem/17702
+- name: Multi Communication 2
+  number: 3
+  links:
+  - https://oj.uz/problem/view/JOI26_multi
+  - https://qoj.ac/problem/17703
+- name: Casino
+  number: 4
+  links:
+  - https://oj.uz/problem/view/JOI26_casino
+  - https://qoj.ac/problem/17704
+- name: JOI Tour 2
+  number: 5
+  links:
+  - https://oj.uz/problem/view/JOI26_joitour
+  - https://qoj.ac/problem/17705
+- name: Teleporter 2
+  number: 6
+  links:
+  - https://oj.uz/problem/view/JOI26_teleporter
+  - https://qoj.ac/problem/17706
+- name: Triangular Rainfall
+  number: 7
+  links:
+  - https://oj.uz/problem/view/JOI26_rainfall
+  - https://qoj.ac/problem/17707
+- name: Scarecrows 2
+  number: 8
+  links:
+  - https://oj.uz/problem/view/JOI26_scarecrows
+  - https://qoj.ac/problem/17708
+- name: Collecting Stamps 5
+  number: 9
+  links:
+  - https://oj.uz/problem/view/JOI26_stamps
+  - https://qoj.ac/problem/17709
+- name: Baker
+  number: 10
+  links:
+  - https://oj.uz/problem/view/JOI26_baker
+  - https://qoj.ac/problem/17710
+- name: Festivals in JOI Kingdom 3
+  number: 11
+  links:
+  - https://oj.uz/problem/view/JOI26_festival
+  - https://qoj.ac/problem/17711
+- name: Voltage 2
+  number: 12
+  links:
+  - https://oj.uz/problem/view/JOI26_voltage
+  - https://qoj.ac/problem/17712

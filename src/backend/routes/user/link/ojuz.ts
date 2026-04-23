@@ -34,37 +34,37 @@ export async function ojuz(app: FastifyInstance) {
   });
 
   app.post<{ Body: { token: string, cookie: string } }>('/update', { schema }, async (req) => {
-    const { token, cookie } = req.body;
-    let session = await db.session.findUnique({ where: { id: token } });
-    if (!session) {
-      throw new createError.Unauthorized('Invalid token');
-    }
-    const userId = session.userId;
-    let problems = (
-      await db.problemLink.findMany({
-        where: { platform: 'oj.uz' },
-        include: { problem: { include: { problemLinks: true } } },
-        orderBy: { problemId: 'asc' }
-      })
-    ).map(i => i.problem);
+      const { token, cookie } = req.body;
+      let session = await db.session.findUnique({ where: { id: token } });
+      if (!session) {
+          throw new createError.Unauthorized('Invalid token');
+      }
+      const userId = session.userId;
+      let problems = (
+          await db.problemLink.findMany({
+              where: { platform: 'oj.uz' },
+              include: { problem: { include: { problemLinks: true } } },
+              orderBy: { problemId: 'asc' }
+          })
+      ).map(i => i.problem);
 
-    let settings = await db.settings.findUnique({ where: { userId }, select: { platformUsernames: true } });
-    if (!settings.platformUsernames || !settings.platformUsernames['oj.uz']) {
-      throw new createError.BadRequest('oj.uz username not set');
+      let settings = await db.settings.findUnique({ where: { userId }, select: { platformUsernames: true } });
+      if (!settings.platformUsernames || !settings.platformUsernames['oj.uz']) {
+          throw new createError.BadRequest('oj.uz username not set');
     }
     let results = await ojuzApi.fetchProblemScores(cookie, settings.platformUsernames['oj.uz'], problems);
     if (results.error) {
-      throw new createError.Forbidden(results.error);
+        throw new createError.Forbidden(results.error);
     }
     const resultsMap = new Map(results.scores.map(i => [i.problemId, i]));
 
     // fetch old progress
     let progress = await db.userProblemData.findMany({
-      where: {
-        userId,
-        problemId: { in: problems.map(i => i.id) }
-      },
-      orderBy: { problemId: 'asc' }
+        where: {
+            userId,
+            problemId: { in: problems.map(i => i.id) }
+        },
+        orderBy: { problemId: 'asc' }
     });
     const progressMap = new Map(progress.map(i => [i.problemId, i]));
 
@@ -85,3 +85,5 @@ export async function ojuz(app: FastifyInstance) {
     return { success: true };
   });
 }
+
+

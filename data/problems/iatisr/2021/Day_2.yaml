@@ -1,0 +1,13 @@
+- name: hint
+  number: 4
+  links:
+    - https://kilonova.ro/problems/239?list_id=91
+- name: delivery
+  number: 5
+  links: 
+    - https://kilonova.ro/problems/240?list_id=91
+- name: rabbit
+  number: 6
+  links:
+      - https://kilonova.ro/problems/241?list_id=91
+

@@ -1,0 +1,20 @@
+- name: Cheerleader
+  number: 1
+  links:
+      - https://kilonova.ro/problems/3273?list_id=1278
+      - https://oj.uz/problem/view/info1cup20_cheerleaders
+- name: Trampoline
+  number: 2
+  links:
+      - https://kilonova.ro/problems/3275?list_id=1278
+      - https://oj.uz/problem/view/info1cup20_trampoline
+- name: Football
+  number: 3
+  links:
+      - https://kilonova.ro/problems/3276?list_id=1278
+      - https://oj.uz/problem/view/info1cup20_football
+- name: Table Tennis
+  number: 4
+  links:
+      - https://kilonova.ro/problems/3277?list_id=1278
+      - https://oj.uz/problem/view/info1cup20_tabletennis

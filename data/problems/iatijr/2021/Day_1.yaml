@@ -1,0 +1,12 @@
+- name: pretty
+  number: 1
+  links: 
+    - https://kilonova.ro/problems/385?list_id=115
+- name: wall
+  number: 2
+  links: 
+    - https://kilonova.ro/problems/377?list_id=115
+- name: sum_prod
+  number: 3
+  links:
+    - https://kilonova.ro/problems/386?list_id=115

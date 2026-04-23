@@ -1,0 +1,12 @@
+- name: Maxstack
+  number: 4
+  links:
+      - https://kilonova.ro/problems/2456?list_id=1035
+- name: Lattice
+  number: 5
+  links:
+      - https://kilonova.ro/problems/2495?list_id=1035
+- name: Bracket Wheel
+  number: 6
+  links:
+      - https://kilonova.ro/problems/2497?list_id=1035
