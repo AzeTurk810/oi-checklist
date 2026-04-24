@@ -161,23 +161,61 @@ function addGlobalClickHandler() {
   if (documentClickHandlerAdded) return;
 
   document.addEventListener('click', (e) => {
-    const popup = document.getElementById('status-popup');
-    if (!popup) return;
+    const statusPopup = document.getElementById('status-popup');
+    const linksPopup = document.getElementById('links-popup');
 
-    const isInsidePopup = popup.contains(e.target);
-    const isSameCell = currentCell && currentCell.contains(e.target);
+    if (statusPopup) {
+      const isInsideStatus = statusPopup.contains(e.target);
+      const isSameStatusCell = currentCell && currentCell.contains(e.target);
+      if (!isInsideStatus && !isSameStatusCell && statusPopup.classList.contains('show')) {
+        statusPopup.classList.remove('show');
+        statusPopup.classList.add('hidden');
+        if (currentCell) {
+          handlePopupClose(currentCell);
+          currentCell = null;
+        }
+      }
+    }
 
-    if (!isInsidePopup && !isSameCell && popup.classList.contains('show')) {
-      popup.classList.remove('show');
-      popup.classList.add('hidden');
-      if (currentCell) {
-        handlePopupClose(currentCell);
-        currentCell = null;
+    if (linksPopup) {
+      const isInsideLinks = linksPopup.contains(e.target);
+      if (!isInsideLinks && linksPopup.classList.contains('show')) {
+        linksPopup.classList.remove('show');
+        linksPopup.classList.add('hidden');
       }
     }
   });
 
   documentClickHandlerAdded = true;
+}
+
+function handleLinkClick(e, links) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const popup = document.getElementById('links-popup');
+  if (!popup) return;
+  popup.innerHTML = '';
+
+  for (const [platform, url] of Object.entries(links)) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.className = 'links-popup-item';
+    a.textContent = platform;
+    a.onclick = () => {
+      popup.classList.remove('show');
+      popup.classList.add('hidden');
+    };
+    popup.appendChild(a);
+  }
+
+  const rect = e.target.getBoundingClientRect();
+  popup.style.top = `${window.scrollY + rect.bottom + 5}px`;
+  popup.style.left = `${window.scrollX + rect.left}px`;
+
+  popup.classList.remove('hidden');
+  setTimeout(() => popup.classList.add('show'), 10);
 }
 
 // Call this when the page loads

@@ -497,6 +497,53 @@ h2 {
     pointer-events: auto;
 }
 
+#links-popup {
+    position: absolute;
+    z-index: 1001;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+    min-width: 120px;
+    font-size: 14px;
+    border-radius: 0px;
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#links-popup.show {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.links-popup-item {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.links-popup-item:hover {
+    background-color: #f0f0f0;
+}
+
+.dark-mode #links-popup {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+.dark-mode .links-popup-item {
+    color: #f0f0f0;
+}
+
+.dark-mode .links-popup-item:hover {
+    background-color: #3a3a3a;
+}
+
 @keyframes bump {
     0% {
         transform: scale(1, 1);

@@ -557,6 +557,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       link.href = problem.link || '#';
       link.target = '_blank';
       link.textContent = problem.name;
+      link.addEventListener('click', e => {
+        if (problem.links) {
+          handleLinkClick(e, problem.links);
+        } else {
+          e.stopPropagation();
+        }
+      });
       cellContent.appendChild(link);
 
       cell.appendChild(cellContent);

@@ -970,7 +970,13 @@ async function loadProblems(from) {
             link.href = problem.link;
             link.target = '_blank';
             link.textContent = problem.name;
-            link.addEventListener('click', e => e.stopPropagation());
+            link.addEventListener('click', e => {
+              if (problem.links) {
+                handleLinkClick(e, problem.links);
+              } else {
+                e.stopPropagation();
+              }
+            });
             cell.appendChild(link);
 
             cell.addEventListener('click', e => {
@@ -1018,7 +1024,13 @@ async function loadProblems(from) {
             link.href = problem.link;
             link.target = '_blank';
             link.textContent = problem.name;
-            link.addEventListener('click', e => e.stopPropagation());
+            link.addEventListener('click', e => {
+              if (problem.links) {
+                handleLinkClick(e, problem.links);
+              } else {
+                e.stopPropagation();
+              }
+            });
             cell.appendChild(link);
 
             cell.addEventListener('click', e => {
@@ -1075,7 +1087,11 @@ async function loadProblems(from) {
 
         // Prevent cell click handler from firing when link is clicked
         link.addEventListener('click', (e) => {
-          e.stopPropagation();
+          if (problem.links) {
+            handleLinkClick(e, problem.links);
+          } else {
+            e.stopPropagation();
+          }
         });
 
         cell.appendChild(link);

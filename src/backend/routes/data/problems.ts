@@ -90,12 +90,11 @@ export async function problems(app: FastifyInstance) {
       }
       result[source][year].push({
         extra: i.extra || null,
-        ...(allLinks ? {
-          links: i.problemLinks.reduce((acc, l) => {
-            acc[l.platform] = l.url;
-            return acc;
-          }, {} as Record<string, string>)
-        } : { link: pickLink(i.problemLinks) }),
+        link: pickLink(i.problemLinks),
+        links: (allLinks || i.problemLinks.length > 1) ? i.problemLinks.reduce((acc, l) => {
+          acc[l.platform] = l.url;
+          return acc;
+        }, {} as Record<string, string>) : undefined,
         id: i.id, name: i.name, number: i.number,
         ...(hasAuth ? { score: data.score, status: data.status, note: data.note } : {}),
         year
