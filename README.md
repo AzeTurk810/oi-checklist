@@ -1,3 +1,4 @@
+(Real creator of this site [avighnac](https://github.com/avighnac/oi-checklist))
 # oi-checklist
 
 A modern, full-featured web app for tracking progress across major Olympiads in Informatics: from IOI and USACO to APIO and EGOI.
