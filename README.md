@@ -17,7 +17,7 @@ Try it live: [https://checklist.spoi.org.in](https://checklist.spoi.org.in) or e
 
 ## Screenshots
 
-### Landing Page and Dashboard
+### RLanding Page and Dashboard
 
 <p align="center">
   <img src="./src/static/images/landing-dark.png" alt="Landing page (dark mode)" width="80%">
@@ -52,6 +52,28 @@ Try it live: [https://checklist.spoi.org.in](https://checklist.spoi.org.in) or e
 <p align="center"><i>Graphs that show detailed submission data and an overall contest timeline</i></p>
 
 <p align="center"><i><small>Note: The scores shown in these screenshots have been arbitrarily chosen and may not reflect a score that's actually achievable under real contest scoring rules.</small></i></p>
+
+<p align="center"><i>After this added by AzeTurk810 with help of Gemini and Local:Deepseek-r1:14b(with tools)</i></p>
+
+<p align="center">
+  <img src="./src/static/images/cfchecklist.png" alt="Virtual contest graphs" width="80%">
+</p>
+<p align="center"><i>Codeforces checklist(with problem adding and removing)</i></p>
+
+<p align="center">
+  <img src="./src/static/images/myperformance.png" alt="Virtual contest graphs" width="80%">
+</p>
+<p align="center"><i>Your profile(at dropdown)</i></p>
+
+<p align="center">
+  <img src="./src/static/images/planner.png" alt="Virtual contest graphs" width="80%">
+</p>
+<p align="center"><i>Your plans(with adding and removing)</i></p>
+
+<p align="center">
+  <img src="./src/static/images/upcomingcontests.png" alt="Virtual contest graphs" width="80%">
+</p>
+<p align="center"><i>Upcoming atcoder/cf/oi contests</i></p>
 
 ## Supported Olympiads
 
@@ -90,6 +112,14 @@ The checklist contains a wide range of Olympiads in Informatics:
 ### Miscellaneous
 
 * Google Kick Start
+
+### Additional
+
+- IATI
+- INFO(1)CUP
+- AzeSelections
+- Canadian Computing Olympiad
+- Spain Olympiad in Informatics
 
 ## Local Development Instructions
 
@@ -202,3 +232,5 @@ For full details, check the `src/backend/routes/` directory, each route is self-
 ## License
 
 This project is released under the MIT License.
+
+(and thanks to  [avighnac](https://github.com/avighnac/oi-checklist) for this awsome site)
