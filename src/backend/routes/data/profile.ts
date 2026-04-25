@@ -33,12 +33,28 @@ export async function profile(app: FastifyInstance) {
       where: { username },
       include: {
         followers: true,
-        problemsData: true,
-        authIdentities: true
+        problemsData: {
+          include: {
+            problem: {
+              include: {
+                problemLinks: true
+              }
+            }
+          }
+        },
+        authIdentities: true,
+        settings: true
       }
     });
     if (!user) {
       throw createError.NotFound('User not found');
+    }
+
+    const platformPref = (user.settings?.platformPref as string[]) || ['oj.uz', 'qoj.ac'];
+    function pickLink(links: any[]): string {
+      if (!links || links.length === 0) return '#';
+      let chosen = platformPref.find(platform => links.some(link => link.platform == platform));
+      return links.find(link => link.platform == chosen)?.url ?? links[0].url ?? '#';
     }
 
     let areFollowing = 0;
@@ -72,6 +88,25 @@ export async function profile(app: FastifyInstance) {
     const lastActivityAt = user.problemsData.length ? new Date(Math.max(...user.problemsData.map(p => p.updatedAt.getTime()))) : null;
     const followers = user.followers.length;
 
+    // Calculate activity map for heatmap
+    const activityMap: Record<string, number> = {};
+    const detailedActivity: Record<string, any[]> = {};
+
+    user.problemsData.forEach(p => {
+      const date = p.updatedAt.toISOString().split('T')[0];
+      activityMap[date] = (activityMap[date] || 0) + 1;
+      
+      if (!detailedActivity[date]) detailedActivity[date] = [];
+      detailedActivity[date].push({
+        problemId: p.problemId,
+        problemName: p.problem.name,
+        problemLink: pickLink(p.problem.problemLinks),
+        status: p.status,
+        score: p.score,
+        updatedAt: p.updatedAt
+      });
+    });
+
     return {
       userId: user.id,
       joinDate: user.createdAt,
@@ -79,6 +114,8 @@ export async function profile(app: FastifyInstance) {
       authIdentities,
       lastActivityAt,
       followers,
+      activityMap,
+      detailedActivity,
       ...(areFollowing == 0 ? {} : { following: areFollowing - 1 })
     };
   });

@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (metaDesc) metaDesc.setAttribute('content', `View ${username}'s progress and statistics on OI Checklist.`);
 
         // Populate profile data
-        populateProfile(profileData, username);
+        const mergedData = mergeLocalActivity(profileData, username);
+        populateProfile(mergedData, username);
 
         // Show follow button if user is logged in and viewing someone else's profile
         if (currentUsername && currentUsername !== username) {
@@ -83,6 +84,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error fetching profile:', error);
         showMessage('Failed to load profile data.', 'error');
+    }
+
+    function mergeLocalActivity(data, profileUsername) {
+        const currentUsername = localStorage.getItem('username');
+        if (currentUsername !== profileUsername) return data;
+
+        const cfSolved = JSON.parse(localStorage.getItem('cf_solved') || '{}');
+        const newData = { ...data };
+        
+        Object.entries(cfSolved).forEach(([id, info]) => {
+            if (typeof info === 'object') {
+                let status = 0;
+                if (info.solved) status = 2;
+                else if (info.status !== undefined) status = info.status;
+
+                if (status === 0) return;
+
+                const date = (info.timestamp || new Date().toISOString()).split('T')[0];
+                
+                // Update solve stats
+                if (status === 2) newData.solveStats.solved++;
+                else if (status === 1) newData.solveStats.progress++;
+                
+                // Update activity map
+                newData.activityMap[date] = (newData.activityMap[date] || 0) + 1;
+                
+                // Update detailed activity
+                if (!newData.detailedActivity[date]) newData.detailedActivity[date] = [];
+                
+                // Check if already in detailed activity to avoid duplicates
+                const label = `CF ${id}: ${info.name || id}`;
+                const exists = newData.detailedActivity[date].some(a => a.problemName === label);
+                if (!exists) {
+                    const contestIdMatch = id.match(/\d+/);
+                    const indexMatch = id.match(/[A-Z]+/);
+                    const url = (contestIdMatch && indexMatch) 
+                        ? `https://codeforces.com/problemset/problem/${contestIdMatch[0]}/${indexMatch[0]}`
+                        : '#';
+
+                    newData.detailedActivity[date].push({
+                        problemName: label,
+                        problemLink: url,
+                        status: status, 
+                        updatedAt: info.timestamp || new Date().toISOString()
+                    });
+                }
+            }
+        });
+        
+        return newData;
     }
 
     // Message system functions
@@ -169,6 +220,116 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Draw chart
         drawProgressChart(solved, progress, failed);
+
+        // Render heatmap
+        if (data.activityMap) {
+            renderHeatmap(data.activityMap);
+        }
+
+        // Render detailed activity
+        if (data.detailedActivity) {
+            renderDetailedActivity(data.detailedActivity);
+        }
+    }
+
+    function renderDetailedActivity(detailedActivity) {
+        const section = document.getElementById('detailed-activity-section');
+        const list = document.getElementById('detailed-activity-list');
+        if (!section || !list) return;
+
+        const dates = Object.keys(detailedActivity).sort((a, b) => b.localeCompare(a));
+        if (dates.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = 'block';
+        list.innerHTML = '';
+
+        // Only show last 7 days with activity
+        const recentDates = dates.slice(0, 7);
+
+        recentDates.forEach(dateStr => {
+            const activities = detailedActivity[dateStr];
+            const date = new Date(dateStr);
+            
+            const group = document.createElement('div');
+            group.className = 'activity-day-group';
+
+            const acc = activities.filter(a => a.status === 2).length;
+            const prog = activities.filter(a => a.status === 1).length;
+            const fail = activities.filter(a => a.status === 3).length;
+
+            const summary = `${activities.length} problems: ${acc} solved, ${prog} in progress, ${fail} failed`;
+
+            group.innerHTML = `
+                <div class="activity-day-header">${date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+                <div class="activity-summary">${summary}</div>
+                <div class="activity-problems">
+                    ${activities.map(a => `
+                        <div class="activity-problem-item">
+                            <span class="status-dot ${getStatusClass(a.status)}"></span>
+                            <a href="${a.problemLink}" target="_blank" class="activity-problem-link">${a.problemName}</a>
+                            <span style="color: #888; font-size: 12px; margin-left: auto;">${new Date(a.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            list.appendChild(group);
+        });
+    }
+
+    function getStatusClass(status) {
+        if (status === 2) return 'acc';
+        if (status === 1) return 'progress';
+        if (status === 3) return 'failed';
+        return '';
+    }
+
+    function renderHeatmap(activityMap) {
+        const grid = document.getElementById('heatmap-grid');
+        const totalText = document.getElementById('heatmap-total-activity');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        
+        const today = new Date();
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(today.getFullYear() - 1);
+        oneYearAgo.setDate(oneYearAgo.getDate() - oneYearAgo.getDay()); // Align to start of week
+
+        let totalActivity = 0;
+        const daysToShow = 365 + today.getDay() + (6 - oneYearAgo.getDay()); // Roughly a year plus padding for weeks
+        
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i <= 371; i++) { // ~53 weeks
+            const date = new Date(oneYearAgo);
+            date.setDate(oneYearAgo.getDate() + i);
+            
+            if (date > today) break;
+
+            const dateString = date.toISOString().split('T')[0];
+            const count = activityMap[dateString] || 0;
+            totalActivity += count;
+
+            const cell = document.createElement('div');
+            cell.className = `heatmap-cell ${getLevel(count)}`;
+            cell.title = `${count} updates on ${date.toLocaleDateString()}`;
+            
+            fragment.appendChild(cell);
+        }
+
+        grid.appendChild(fragment);
+        totalText.textContent = `${totalActivity} updates in the last year`;
+    }
+
+    function getLevel(count) {
+        if (count === 0) return 'level-0';
+        if (count <= 2) return 'level-1';
+        if (count <= 5) return 'level-2';
+        if (count <= 10) return 'level-3';
+        return 'level-4';
     }
 
     // Listen for dark mode toggle to redraw chart with correct colors

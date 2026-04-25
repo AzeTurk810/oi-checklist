@@ -124,6 +124,36 @@
                 <button class="follow-button" id="follow-button" style="display: none;">Follow</button>
             </div>
         </div>
+
+        <!-- Activity Heatmap Section -->
+        <div class="profile-section">
+            <h2 class="section-title">Activity</h2>
+            <div class="heatmap-container" id="heatmap-container">
+                <div class="heatmap-header">
+                    <span id="heatmap-total-activity">0 updates in the last year</span>
+                </div>
+                <div id="heatmap-grid" class="heatmap-grid"></div>
+                <div class="heatmap-footer">
+                    <div class="heatmap-legend">
+                        <span>Less</span>
+                        <div class="legend-cells">
+                            <div class="heatmap-cell level-0"></div>
+                            <div class="heatmap-cell level-1"></div>
+                            <div class="heatmap-cell level-2"></div>
+                            <div class="heatmap-cell level-3"></div>
+                            <div class="heatmap-cell level-4"></div>
+                        </div>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Activity Section -->
+        <div class="profile-section" id="detailed-activity-section" style="display: none;">
+            <h2 class="section-title">Activity Details</h2>
+            <div class="detailed-activity-list" id="detailed-activity-list"></div>
+        </div>
     </div>
 
     <!-- Message System -->

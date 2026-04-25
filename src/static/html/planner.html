@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Planner - OI Checklist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style_planner.css">
+    <script src="/js/init_darkmode.js"></script>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <div class="navbar-left">
+                <a href="/" class="home-icon">
+                    <svg class="home-icon-svg" width="36" height="36" viewBox="0 0 24 24" stroke="none">
+                        <path d="M12 3l9 7v11h-6v-8h-6v8H3V10l9-7z" />
+                    </svg>
+                </a>
+                <div class="navbar-title" id="page-title">Personal Planner</div>
+            </div>
+            <div class="navbar-center">
+                <a href="/homecf" class="nav-dropdown-trigger">Codeforces</a>
+                <a href="/planner" class="nav-dropdown-trigger active">Planner</a>
+            </div>
+            <div class="navbar-user" id="navbar-user">
+                <span class="welcome-message" id="welcome-message"></span>
+                <a href="#" class="logout-button" id="logout-button">Logout</a>
+                <div class="dark-mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="dark-mode-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="planner-container">
+        <div class="planner-header">
+            <div class="header-main">
+                <h1>My Study Plan</h1>
+                <p>Schedule your problems, virtual contests, and goals.</p>
+            </div>
+            <button id="open-add-modal" class="add-btn-large">+ Add New Task</button>
+        </div>
+
+        <div class="planner-view-controls">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="problem">Problems</button>
+                <button class="filter-btn" data-filter="virtual">Virtuals</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+        </div>
+
+        <div class="planner-timeline" id="planner-timeline">
+            <!-- Days and tasks will be rendered here -->
+            <div class="dropdown-loading">Loading your plan...</div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="task-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Add Task</h2>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="task-date">
+            </div>
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time" id="task-time">
+            </div>
+            <div class="form-group">
+                <label>Type</label>
+                <select id="task-type">
+                    <option value="problem">Problem</option>
+                    <option value="virtual">Virtual Contest</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Title / Problem ID</label>
+                <input type="text" id="task-title" placeholder="e.g. IOI 2023 P1 or CF 158A">
+            </div>
+            <div class="form-group">
+                <label>Notes / URL</label>
+                <textarea id="task-notes" placeholder="Any reminders or links..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="close-modal" class="secondary-btn">Cancel</button>
+                <button id="save-task" class="primary-btn">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/planner.js"></script>
+</body>
+</html>

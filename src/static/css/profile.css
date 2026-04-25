@@ -395,3 +395,91 @@
         max-width: none;
     }
 }
+
+/* Activity Heatmap */
+.profile-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .profile-section {
+    background: #1e1e1e;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.dark-mode .section-title {
+    color: #f0f0f0;
+}
+
+.heatmap-container {
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.heatmap-header {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.dark-mode .heatmap-header {
+    color: #aaa;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(7, 12px);
+    grid-auto-columns: 12px;
+    gap: 3px;
+    margin-bottom: 10px;
+}
+
+.heatmap-cell {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background-color: #ebedf0;
+}
+
+.dark-mode .heatmap-cell {
+    background-color: #2d333b;
+}
+
+.heatmap-cell.level-0 { background-color: #ebedf0; }
+.dark-mode .heatmap-cell.level-0 { background-color: #2d333b; }
+
+.heatmap-cell.level-1 { background-color: #9be9a8; }
+.heatmap-cell.level-2 { background-color: #40c463; }
+.heatmap-cell.level-3 { background-color: #30a14e; }
+.heatmap-cell.level-4 { background-color: #216e39; }
+
+.heatmap-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    color: #666;
+}
+
+.dark-mode .heatmap-footer {
+    color: #aaa;
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-cells {
+    display: flex;
+    gap: 3px;
+}

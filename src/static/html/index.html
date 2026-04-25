@@ -51,6 +51,18 @@
     <nav class="navbar" id="navbar" aria-label="Primary navigation">
         <div class="navbar-content">
             <div class="navbar-title" id="page-title">OI Checklist</div>
+            
+            <div class="navbar-center" id="navbar-center">
+                <div class="nav-item-dropdown">
+                    <button class="nav-dropdown-trigger" id="upcoming-trigger">Upcoming</button>
+                    <div class="nav-dropdown-content" id="upcoming-content">
+                        <div class="dropdown-loading">Loading...</div>
+                    </div>
+                </div>
+                <a href="/homecf" class="nav-dropdown-trigger">Codeforces</a>
+                <a href="/planner" class="nav-dropdown-trigger">Planner</a>
+            </div>
+
             <div class="navbar-user">
                 <span class="welcome-message" id="welcome-message" aria-live="polite"></span>
                 <a href="#" class="logout-button" id="logout-button" rel="nofollow">Logout</a>
@@ -71,10 +83,13 @@
                         </svg>
                     </button>
                     <div id="settings-dropdown" class="settings-dropdown" role="menu">
-                        <div id="connections-item" class="settings-item" role="none">
+                        <div class="settings-item settings-item-button" role="none">
+                            <a href="#" id="performance-link" class="general-button" role="menuitem">My Performance</a>
+                        </div>
+                        <div class="settings-item settings-item-button" role="none">
                             <a href="virtual" class="general-button" role="menuitem">Virtual Contests</a>
                         </div>
-                        <div id="connections-item" class="settings-item" role="none">
+                        <div class="settings-item settings-item-button" role="none">
                             <a href="settings" class="general-button" role="menuitem">Settings</a>
                         </div>
                     </div>

@@ -863,6 +863,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  function checkTriedProblems(contest, selectedOlympiad) {
+    const triedWarning = document.getElementById('tried-warning');
+    const triedWarningText = document.getElementById('tried-warning-text');
+
+    if (!contest || !contest.problems || !problemsData[selectedOlympiad]) {
+      triedWarning.style.display = 'none';
+      return;
+    }
+
+    const triedProblems = [];
+    contest.problems.forEach(prob => {
+      const yearProblems = problemsData[selectedOlympiad][prob.year] || [];
+      const problem = yearProblems.find(p => p.year === prob.year && p.number === prob.number);
+      if (problem && problem.status > 0) {
+        triedProblems.push(problem.name);
+      }
+    });
+
+    if (triedProblems.length > 0) {
+      triedWarningText.textContent = `Warning: You have already tried these problems: ${triedProblems.join(', ')}`;
+      triedWarning.style.display = 'flex';
+    } else {
+      triedWarning.style.display = 'none';
+    }
+  }
+
   function renderPlatformSyncCard(problemCount, platformIndexMap, activeUsernames) {
     const card = document.getElementById('platform-sync-card');
     const rows = document.getElementById('platform-sync-rows');
@@ -977,6 +1003,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hide completion warning when olympiad changes
     const completionWarning = document.getElementById('completion-warning');
     completionWarning.style.display = 'none';
+    const triedWarning = document.getElementById('tried-warning');
+    if (triedWarning) triedWarning.style.display = 'none';
 
     // Show/hide entire form rows
     contestRow.style.display = selectedOlympiad ? 'block' : 'none';
@@ -1021,6 +1049,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hide completion warning when contest changes
     const completionWarning = document.getElementById('completion-warning');
     completionWarning.style.display = 'none';
+    const triedWarning = document.getElementById('tried-warning');
+    if (triedWarning) triedWarning.style.display = 'none';
 
     // Hide day row initially
     dayRow.style.display = 'none';
@@ -1092,6 +1122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // If auto-track is enabled and not completed, pre-check coverage and disable start if missing
         precheckCoverageAfterSelection(contest, selectedOlympiad);
+        checkTriedProblems(contest, selectedOlympiad);
 
         // Show/hide ojuzSection if at least one platform is in auto_synced_platforms
         const hasAutoSynced = platforms && platforms.some(p => auto_synced_platforms.includes(p));
@@ -1196,6 +1227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // If auto-track is enabled and not completed, pre-check coverage and disable start if missing
       precheckCoverageAfterSelection(contest, selectedOlympiad);
+      checkTriedProblems(contest, selectedOlympiad);
 
       // Show/hide ojuzSection if at least one platform is in auto_synced_platforms
       const hasAutoSynced = platforms && platforms.some(p => auto_synced_platforms.includes(p));

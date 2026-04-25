@@ -1245,6 +1245,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     check_session();
   }
   const username = localStorage.getItem('username');
+  if (username) {
+    const performanceLink = document.getElementById('performance-link');
+    if (performanceLink) {
+      performanceLink.href = `profile/${username}`;
+    }
+  }
 
   // Create skeleton containers immediately to eliminate blank screen
   const olympiadList = document.getElementById('olympiad-list');
@@ -1598,3 +1604,118 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 })();
+
+// Navbar Dropdowns Logic (Upcoming & Planner)
+document.addEventListener('DOMContentLoaded', () => {
+  initUpcoming();
+  initPlanner();
+});
+
+async function initUpcoming() {
+  const trigger = document.getElementById('upcoming-trigger');
+  const content = document.getElementById('upcoming-content');
+  if (!trigger || !content) return;
+
+  let loaded = false;
+  trigger.addEventListener('mouseenter', async () => {
+    if (loaded) return;
+    try {
+      const res = await fetch('/data/upcoming');
+      const contests = await res.json();
+      renderUpcoming(contests);
+      loaded = true;
+    } catch (err) {
+      content.innerHTML = '<div class="error">Failed to load</div>';
+    }
+  });
+}
+
+function renderUpcoming(contests) {
+  const content = document.getElementById('upcoming-content');
+  if (!content) return;
+
+  if (!contests || contests.length === 0) {
+    content.innerHTML = '<div>No upcoming contests found</div>';
+    return;
+  }
+
+  content.innerHTML = contests.map(c => {
+    const date = new Date(c.start);
+    const platformClass = 'tag-' + c.platform.toLowerCase().replace(' ', '-');
+    return `
+      <div class="upcoming-item">
+        <a href="${c.url}" target="_blank" class="upcoming-item-name">${c.name}</a>
+        <div class="upcoming-item-meta">
+          <span class="platform-tag ${platformClass}">${c.platform}</span>
+          <span>${date.toLocaleString([], {month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function initPlanner() {
+  const list = document.getElementById('planner-todo-list');
+  const input = document.getElementById('planner-input');
+  const typeSelect = document.getElementById('planner-type');
+  const timeInput = document.getElementById('planner-time');
+  const addBtn = document.getElementById('planner-add-btn');
+  if (!list || !input || !addBtn) return;
+
+  // Load from localStorage
+  const load = () => {
+    const items = JSON.parse(localStorage.getItem('oi_planner') || '[]');
+    list.innerHTML = items.map((item, idx) => `
+      <div class="planner-item ${item.done ? 'done' : ''}">
+        <input type="checkbox" ${item.done ? 'checked' : ''} onchange="togglePlanner(${idx})">
+        <div style="display:flex; flex-direction:column; flex-grow:1; gap:2px">
+            <div style="display:flex; align-items:center; gap:5px">
+                <span class="planner-item-type type-${item.type || 'other'}">${item.type || 'other'}</span>
+                ${item.time ? `<span class="planner-item-time">${item.time}</span>` : ''}
+            </div>
+            <span>${item.text}</span>
+        </div>
+        <button onclick="removePlanner(${idx})" style="background:none;border:none;color:#ff4d4d;cursor:pointer;font-size:16px">&times;</button>
+      </div>
+    `).join('');
+  };
+
+  window.togglePlanner = (idx) => {
+    const items = JSON.parse(localStorage.getItem('oi_planner') || '[]');
+    items[idx].done = !items[idx].done;
+    localStorage.setItem('oi_planner', JSON.stringify(items));
+    load();
+  };
+
+  window.removePlanner = (idx) => {
+    const items = JSON.parse(localStorage.getItem('oi_planner') || '[]');
+    items.splice(idx, 1);
+    localStorage.setItem('oi_planner', JSON.stringify(items));
+    load();
+  };
+
+  addBtn.onclick = () => {
+    const text = input.value.trim();
+    const type = typeSelect.value;
+    const time = timeInput.value;
+    if (!text) return;
+    const items = JSON.parse(localStorage.getItem('oi_planner') || '[]');
+    items.push({ text, type, time, done: false });
+    // Sort by time if provided
+    items.sort((a, b) => {
+        if (!a.time) return 1;
+        if (!b.time) return -1;
+        return a.time.localeCompare(b.time);
+    });
+    localStorage.setItem('oi_planner', JSON.stringify(items));
+    input.value = '';
+    timeInput.value = '';
+    load();
+  };
+
+  input.onkeypress = (e) => {
+    if (e.key === 'Enter') addBtn.onclick();
+  };
+
+  load();
+}

@@ -1106,7 +1106,7 @@ body.dark-mode .settings-label {
     display: none !important;
 }
 
-#connections-item {
+.settings-item-button {
     width: 100%;
     /* Ensure the parent container takes up full width */
     padding: 0;
@@ -2315,3 +2315,310 @@ body.dark-mode .md-line pre {
     border-color: #82c6ff;
     box-shadow: 0 0 0 3px rgba(130, 198, 255, .25);
 }
+/* Navbar Dropdowns (Upcoming, Planner) */
+.navbar-center {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-trigger {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.dark-mode .nav-dropdown-trigger {
+    color: #f0f0f0;
+}
+
+.nav-dropdown-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .nav-dropdown-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.dark-mode .nav-dropdown-content {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    border: 1px solid #333;
+}
+
+.nav-item-dropdown:hover .nav-dropdown-content {
+    display: block;
+}
+
+/* Upcoming Contests Styles */
+.upcoming-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.dark-mode .upcoming-item {
+    border-bottom-color: #333;
+}
+
+.upcoming-item:last-child {
+    border-bottom: none;
+}
+
+.upcoming-item-name {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dark-mode .upcoming-item-name {
+    color: #4facfe;
+}
+
+.upcoming-item-meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.dark-mode .upcoming-item-meta {
+    color: #aaa;
+}
+
+.platform-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
+.tag-codeforces { background: #ffebee; color: #c62828; }
+.tag-atcoder { background: #e3f2fd; color: #1565c0; }
+.tag-oi-contest { background: #f1f8e9; color: #2e7d32; }
+
+/* Planner Styles */
+.planner-dropdown-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.planner-todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.planner-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+}
+
+.planner-item input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.planner-item span {
+    font-size: 14px;
+    flex-grow: 1;
+}
+
+.planner-item.done span {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.planner-add {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.planner-add input {
+    flex-grow: 1;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.dark-mode .planner-add input {
+    background: #2a2a2a;
+    border-color: #444;
+    color: white;
+}
+
+.planner-add button {
+    padding: 5px 10px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Detailed Activity on Profile */
+.activity-day-group {
+    margin-bottom: 20px;
+}
+
+.activity-day-header {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+}
+
+.dark-mode .activity-day-header {
+    border-bottom-color: #333;
+}
+
+.activity-summary {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.dark-mode .activity-summary {
+    color: #aaa;
+}
+
+.activity-problem-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+    font-size: 14px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-dot.acc { background-color: #40c463; }
+.status-dot.progress { background-color: #f1c40f; }
+.status-dot.failed { background-color: #e74c3c; }
+
+
+.activity-problem-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.activity-problem-link:hover {
+    text-decoration: underline;
+    color: #4facfe;
+}
+
+.dark-mode .activity-problem-link {
+    color: #f0f0f0;
+}
+
+.dark-mode .activity-problem-link:hover {
+    color: #4facfe;
+}
+
+.planner-add-detailed {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.dark-mode .planner-add-detailed {
+    border-top-color: #333;
+}
+
+.planner-add-row {
+    display: flex;
+    gap: 8px;
+}
+
+.planner-add-row select, .planner-add-row input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 13px;
+}
+
+.dark-mode .planner-add-row select, .dark-mode .planner-add-row input {
+    background: #2a2a2a;
+    border-color: #444;
+    color: white;
+}
+
+.planner-add-row select {
+    flex: 1;
+}
+
+.planner-add-row input[type="time"] {
+    flex: 1;
+}
+
+.planner-add-row input[type="text"] {
+    flex: 3;
+}
+
+.planner-item-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background: #eee;
+}
+
+.dark-mode .planner-item-type {
+    background: #333;
+}
+
+.planner-item-time {
+    font-size: 11px;
+    color: #888;
+}
+
+.type-problem { color: #4facfe; }
+.type-virtual { color: #f1c40f; }
+.type-other { color: #888; }
+

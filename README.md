@@ -102,7 +102,7 @@ Ensure you have `git` installed.
 In any appropriate directory, run:
 
 ```bash
-git clone https://github.com/avighnac/oi-checklist
+git clone https://github.com/AzeTurk810/oi-checklist
 cd oi-checklist
 ```
 
