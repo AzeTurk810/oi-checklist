@@ -1,0 +1,12 @@
+- name: Binaria
+  number: 1
+  links:
+      - https://qoj.ac/contest/1255/problem/6625
+- name: Real Mountains
+  number: 2
+  links:
+      - https://qoj.ac/contest/1255/problem/6626
+- name: Line Town
+  number: 3
+  links:
+      - https://qoj.ac/contest/1255/problem/6627

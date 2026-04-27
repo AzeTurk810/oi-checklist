@@ -1,0 +1,15 @@
+name: CCO 2022
+location: Canada
+duration: 300
+website: https://cemc.uwaterloo.ca/contests/ccc
+link: https://qoj.ac/contest/950
+problems:
+- source: cco
+  year: 2022
+  number: 4
+- source: cco
+  year: 2022
+  number: 5
+- source: cco
+  year: 2022
+  number: 6

@@ -29,15 +29,22 @@ def extract_problem_id_from_url(url: str) -> int | None:
   return int(m.group(1)) if m else None
 
 def parse_server_time_offset(soup: BeautifulSoup) -> timedelta:
-  p_tag = soup.find("p", string=re.compile(r"Server Time:\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}"))
+  # Try multiple patterns for server time
+  p_tag = soup.find(string=re.compile(r"Server Time:"))
   if not p_tag:
     return timedelta(0)
-  m = re.search(r"Server Time:\s*([0-9:\-\s]{19})", p_tag.get_text(" ", strip=True))
+  
+  text = p_tag.get_text(" ", strip=True) if hasattr(p_tag, 'get_text') else str(p_tag)
+  m = re.search(r"Server Time:\s*([0-9:\-\s]{19})", text)
   if not m:
     return timedelta(0)
-  server_naive = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M:%S")
-  now_utc = datetime.utcnow()
-  return server_naive - now_utc
+  
+  try:
+    server_naive = datetime.strptime(m.group(1).strip(), "%Y-%m-%d %H:%M:%S")
+    now_utc = datetime.utcnow()
+    return server_naive - now_utc
+  except Exception:
+    return timedelta(0)
 
 def parse_submissions_rows_for_page(html: str, server_offset: timedelta):
   soup = BeautifulSoup(html, "html.parser")
@@ -45,12 +52,14 @@ def parse_submissions_rows_for_page(html: str, server_offset: timedelta):
   results = []
   for row in rows:
     try:
-      a_sub = row.select_one("td a[href^='/submission/']")
+      # Find submission ID - usually the first link or a link with /submission/
+      a_sub = row.select_one("a[href*='/submission/']")
       if not a_sub:
         continue
-      sub_id = a_sub["href"].rsplit("/", 1)[-1]
+      sub_id = a_sub["href"].split("/")[-1]
 
-      a_prob = row.select_one("td a[href*='/problem/']")
+      # Find problem ID - look for link with /problem/
+      a_prob = row.select_one("a[href*='/problem/']")
       if not a_prob:
         continue
       prob_href = a_prob["href"]
@@ -58,11 +67,23 @@ def parse_submissions_rows_for_page(html: str, server_offset: timedelta):
       if pid is None:
         continue
 
-      smalls = row.find_all("small")
-      if not smalls:
+      # Time is usually in the last few columns, often in a <small> or directly in <td>
+      time_cell = None
+      for td in reversed(row.find_all("td")):
+        text = td.get_text(strip=True)
+        if re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', text):
+          time_cell = text
+          break
+      
+      if not time_cell:
+        smalls = row.find_all("small")
+        if smalls:
+          time_cell = smalls[0].get_text(strip=True)
+      
+      if not time_cell or not re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', time_cell):
         continue
-      tstr = smalls[0].get_text(strip=True)
-      local_naive = datetime.strptime(tstr, "%Y-%m-%d %H:%M:%S")
+
+      local_naive = datetime.strptime(time_cell, "%Y-%m-%d %H:%M:%S")
       dt_utc = (local_naive - server_offset).replace(tzinfo=timezone.utc)
 
       results.append({
@@ -70,7 +91,7 @@ def parse_submissions_rows_for_page(html: str, server_offset: timedelta):
         "problem_id": pid,
         "submission_time_iso": dt_to_iso_utc(dt_utc),
       })
-    except Exception as _:
+    except Exception as e:
       continue
   return results
 

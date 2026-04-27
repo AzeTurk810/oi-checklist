@@ -428,6 +428,16 @@ body.dark-mode .segment.active {
     background-color: #c82333;
 }
 
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
 /* Score Entry */
 .score-entry {
     border: 1px solid #ddd;

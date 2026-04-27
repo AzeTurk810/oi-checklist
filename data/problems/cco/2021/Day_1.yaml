@@ -1,0 +1,12 @@
+- name: Swap Swap Sort
+  number: 1
+  links:
+      - https://qoj.ac/contest/745/problem/2706
+- name: Weird Numeral System
+  number: 2
+  links:
+      - https://qoj.ac/contest/745/problem/2707
+- name: Through Another Maze Darkly
+  number: 3
+  links:
+      - https://qoj.ac/contest/745/problem/2708

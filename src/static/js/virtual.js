@@ -98,9 +98,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const olympiadSelect = document.getElementById('olympiad-select');
   const contestSelect = document.getElementById('contest-select');
   const daySelect = document.getElementById('day-select');
+  const startTimeRow = document.getElementById('start-time-row');
+  const startTimeInput = document.getElementById('start-time');
   const contestDetails = document.getElementById('contest-details');
   const ojuzSection = document.getElementById('ojuz-section');
   const startBtn = document.getElementById('start-contest-btn');
+  const cancelBtn = document.getElementById('cancel-contest-btn');
   const vcForm = document.querySelector('.vc-form');
   const activeContest = document.getElementById('active-contest');
   const scoreEntry = document.getElementById('score-entry');
@@ -354,13 +357,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     const scoreSection = document.querySelector('.score-section');
     const scoreSectionH3 = scoreSection.querySelector('h3');
     const scoreSubtitle = document.querySelector('.score-subtitle');
+    const submitBtn = document.getElementById('submit-scores-btn');
+    const editBtn = document.getElementById('edit-scores-btn');
 
     if (isReadOnly) {
       scoreSectionH3.textContent = 'View Your Scores';
       scoreSubtitle.textContent = 'Click on each problem to view detailed scoring information.';
+      submitBtn.textContent = 'Confirm Scores';
+      if (currentActiveContest.autosynced) {
+        editBtn.style.display = 'block';
+      } else {
+        editBtn.style.display = 'none';
+      }
     } else {
       scoreSectionH3.textContent = 'Enter Your Scores';
       scoreSubtitle.textContent = 'Click on each problem to set your score.';
+      submitBtn.textContent = 'Submit Scores';
+      editBtn.style.display = 'none';
     }
 
     // Get the contest data to find problems
@@ -515,7 +528,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // If we have oj.uz data, populate scores
-    if (isReadOnly && currentActiveContest.autosynced) {
+    if (currentActiveContest.autosynced && currentActiveContest.ojuz_data) {
       const scoreData = calculateScore(currentActiveContest.ojuz_data, currentActiveContest.problems.length);
       for (let problemIndex = 0; problemIndex < scoreData.length; ++problemIndex) {
         problemData[problemIndex].score = scoreData[problemIndex].reduce((a, b) => a + b, 0);
@@ -599,10 +612,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     contestSelect.disabled = true;
     daySelect.disabled = true;
     contestDetails.style.display = 'none';
+    startTimeRow.style.display = 'none';
+    startTimeInput.value = '';
     ojuzSection.style.display = 'none';
     startBtn.disabled = true;
 
     // Show form, hide others
+    scoreEntry.dataset.mode = '';
     vcForm.style.display = 'block';
     activeContest.style.display = 'none';
     scoreEntry.style.display = 'none';
@@ -1101,6 +1117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('contest-platform').textContent = platforms.join('/');
 
         contestDetails.style.display = 'block';
+        startTimeRow.style.display = 'block';
 
         // Set state for platform sync preview and update
         lastRenderedContest = contest;
@@ -1206,6 +1223,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('contest-platform').textContent = platforms.join('/');
 
       contestDetails.style.display = 'block';
+      startTimeRow.style.display = 'block';
 
       // Set state for platform sync preview and update
       lastRenderedContest = contest;
@@ -1280,6 +1298,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Determine if user wants auto-tracking via checkbox
     const wantsAutoTrack = document.getElementById('ojuz-autotrack')?.checked || false;
+    
+    let startTimeValue = null;
+    if (startTimeInput.value) {
+      const [hours, minutes] = startTimeInput.value.split(':').map(Number);
+      const now = new Date();
+      const startDate = new Date();
+      startDate.setHours(hours, minutes, 0, 0);
+      
+      // If the time has already passed today, assume tomorrow
+      if (startDate < now) {
+        startDate.setDate(startDate.getDate() + 1);
+      }
+      startTimeValue = startDate.toISOString();
+    }
 
     // If auto-track is requested, ensure a username exists in user settings
     let platformUsernames = {};
@@ -1347,7 +1379,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           token: sessionToken,
           name: contestName,
           stage: finalStage,
-          autosynced: !!wantsAutoTrack
+          autosynced: !!wantsAutoTrack,
+          startTime: startTimeValue
         })
       });
 
@@ -1375,7 +1408,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentActiveContest = {
       contest_name: contestName,
       contest_stage: finalStage,
-      start_time: new Date().toISOString(),
+      start_time: startTimeValue || new Date().toISOString(),
       duration_minutes: contest.duration_minutes,
       location: contest.location || '',
       website: contest.website || '',
@@ -1671,6 +1704,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       }, 300);
     }
   }
+  document.getElementById('edit-scores-btn').addEventListener('click', () => {
+    scoreEntry.dataset.mode = 'manual';
+    showScoreEntry(false);
+  });
+
   document.getElementById('submit-scores-btn').addEventListener('click', async () => {
     if (!currentActiveContest) {
       showMessage('No active contest data available.');
@@ -1678,7 +1716,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Check if we're in autosynced mode (with oj.uz data)
-    const isAutosynced = !!currentActiveContest.autosynced;
+    const isAutosynced = !!currentActiveContest.autosynced && scoreEntry.dataset.mode !== 'manual';
 
     if (isAutosynced) {
       // autosynced mode - just confirm the contest completion
@@ -1780,10 +1818,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function startTimerWithSeconds(remainingSeconds, alreadyElapsedSeconds = 0) {
-    // Store the start timestamp for accurate time tracking
-    const timerStartTime = Date.now();
-    const initialTimeRemaining = remainingSeconds;
-    
     const timer = document.getElementById('contest-timer');
     const progressFill = document.getElementById('progress-fill');
     const progressText = document.getElementById('progress-text');
@@ -1792,35 +1826,56 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Update display function
     const updateDisplay = () => {
-      // Calculate actual elapsed time since timer started
-      const actualElapsedMs = Date.now() - timerStartTime;
-      const actualElapsedSeconds = Math.floor(actualElapsedMs / 1000);
+      if (!currentActiveContest) return;
+
+      const now = new Date();
+      const contestStart = new Date(currentActiveContest.start_time);
+      const totalContestSeconds = currentActiveContest.duration_minutes * 60;
       
-      // Calculate remaining time based on actual elapsed time
-      const timeRemaining = Math.max(0, initialTimeRemaining - actualElapsedSeconds);
+      if (now < contestStart) {
+        // Contest hasn't started yet
+        const waitMs = contestStart - now;
+        const waitSec = Math.ceil(waitMs / 1000);
+        
+        const hours = Math.floor(waitSec / 3600);
+        const minutes = Math.floor((waitSec % 3600) / 60);
+        const seconds = waitSec % 60;
+        
+        timer.textContent = `Starts in: ${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        progressFill.style.width = '0%';
+        progressText.textContent = 'Waiting for start...';
+        
+        // Always show cancel button if not started
+        cancelBtn.style.display = 'block';
+        return;
+      }
+
+      // Show cancel button only if within 3 minutes of start
+      const minutesSinceStart = (now - contestStart) / (1000 * 60);
+      if (minutesSinceStart < 3) {
+        cancelBtn.style.display = 'block';
+      } else {
+        cancelBtn.style.display = 'none';
+      }
+      
+      // Calculate remaining time
+      const elapsedSinceStart = (now - contestStart) / 1000;
+      const timeRemaining = Math.max(0, totalContestSeconds - elapsedSinceStart);
 
       const hours = Math.floor(timeRemaining / 3600);
       const minutes = Math.floor((timeRemaining % 3600) / 60);
-      const seconds = timeRemaining % 60;
+      const seconds = Math.floor(timeRemaining % 60);
 
       timer.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      // Only update progress if we have contest data
-      if (currentActiveContest && currentActiveContest.duration_minutes) {
-        // Total elapsed time = already elapsed + actual elapsed from timer
-        const totalElapsedSeconds = alreadyElapsedSeconds + actualElapsedSeconds;
-        const totalContestSeconds = currentActiveContest.duration_minutes * 60;
+      // Update progress
+      const cappedElapsedSeconds = Math.min(elapsedSinceStart, totalContestSeconds);
+      const progressPercent = Math.max(0, (cappedElapsedSeconds / totalContestSeconds) * 100);
+      progressFill.style.width = `${Math.min(100, progressPercent)}%`;
 
-        // Cap elapsed time at contest duration
-        const cappedElapsedSeconds = Math.min(totalElapsedSeconds, totalContestSeconds);
-
-        const progressPercent = (cappedElapsedSeconds / totalContestSeconds) * 100;
-        progressFill.style.width = `${Math.min(100, progressPercent)}%`;
-
-        const elapsedHours = Math.floor(cappedElapsedSeconds / 3600);
-        const elapsedMins = Math.floor((cappedElapsedSeconds % 3600) / 60);
-        progressText.textContent = `${elapsedHours}h ${elapsedMins}m elapsed`;
-      }
+      const elapsedHours = Math.floor(cappedElapsedSeconds / 3600);
+      const elapsedMins = Math.floor((cappedElapsedSeconds % 3600) / 60);
+      progressText.textContent = `${elapsedHours}h ${elapsedMins}m elapsed`;
 
       // Check if time is up
       if (timeRemaining <= 0) {
@@ -1844,6 +1899,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start interval - run only once!
     intervalId = setInterval(updateDisplay, 1000);
   }
+
+  // Handle cancel contest button
+  cancelBtn.addEventListener('click', async () => {
+    if (!confirm('Are you sure you want to cancel this virtual contest? This will delete all your submissions for this contest.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/user/virtual/cancel`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: sessionToken })
+      });
+
+      if (response.ok) {
+        localStorage.setItem('contest_ongoing', 'false');
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        showMessage('Failed to cancel contest: ' + error.error);
+      }
+    } catch (error) {
+      console.error('Error cancelling contest:', error);
+      showMessage('Failed to cancel contest. Please try again.', 'error');
+    }
+  });
 
   function startTimer(remainingMinutes, alreadyElapsedMinutes = 0) {
     // Convert to seconds and use the seconds-based function

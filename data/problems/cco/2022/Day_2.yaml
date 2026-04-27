@@ -1,0 +1,12 @@
+- name: Bi-ing Lottery Treekets
+  number: 4
+  links:
+      - https://qoj.ac/contest/950/problem/4271
+- name: Phone Plans
+  number: 5
+  links:
+      - https://qoj.ac/contest/950/problem/4272
+- name: Good Game
+  number: 6
+  links:
+      - https://qoj.ac/contest/950/problem/4273

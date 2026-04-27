@@ -1,0 +1,15 @@
+name: CCO 2023
+location: Canada
+duration: 300
+website: https://cemc.uwaterloo.ca/contests/ccc
+link: https://qoj.ac/contest/1255
+problems:
+- source: cco
+  year: 2023
+  number: 1
+- source: cco
+  year: 2023
+  number: 2
+- source: cco
+  year: 2023
+  number: 3

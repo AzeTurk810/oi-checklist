@@ -42,10 +42,6 @@ export async function submit(app: FastifyInstance) {
     if (!activeContest.endedAt) {
       throw createError.BadRequest('Contest not ended yet');
     }
-    // "national security check"
-    if (activeContest.autosynced) {
-      throw createError.Forbidden(`You can't manaully modify scores for autosynced contests!`);
-    }
     const n = activeContest.contest.problems.length;
     if (scores.length != n) {
       throw createError.BadRequest(`You must specify exactly ${n} scores`);
@@ -60,7 +56,13 @@ export async function submit(app: FastifyInstance) {
       perProblemScores: scores
     };
     // move the contest
-    await db.userVirtualContest.create({ data });
+    const contest = await db.userVirtualContest.create({ data });
+    // move all submissions
+    await db.virtualSubmission.updateMany({
+      where: { activeVirtualContestUserId: userId },
+      data: { virtualContestId: contest.id, activeVirtualContestUserId: null }
+    });
+    // delete the active contest
     await db.activeVirtualContest.delete({ where: { userId } });
     return { success: true };
   });

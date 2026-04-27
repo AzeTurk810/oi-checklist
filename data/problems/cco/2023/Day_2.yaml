@@ -1,0 +1,12 @@
+- name: Flip it and Stick it
+  number: 4
+  links:
+      - https://qoj.ac/contest/1256/problem/6628
+- name: Travelling Trader
+  number: 5
+  links:
+      - https://qoj.ac/contest/1256/problem/6629
+- name: Triangle Collection
+  number: 6
+  links:
+      - https://qoj.ac/contest/1256/problem/6630

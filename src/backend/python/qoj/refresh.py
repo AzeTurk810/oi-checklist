@@ -18,12 +18,10 @@ def make_scraper(session_id: str | None = None):
   return s
 
 def is_logged_in(soup: BeautifulSoup) -> bool:
-  if soup.select_one('a.nav-link[href="//qoj.ac/login"]'):
+  if soup.select_one('a.nav-link[href*="/logout"]'):
+    return True
+  if soup.select_one('a.nav-link[href*="/login"]'):
     return False
-  if soup.select_one('span.uoj-username'):
-    return True
-  if soup.select_one('a.nav-link[href^="//qoj.ac/logout"]'):
-    return True
   return False
 
 def get_login_token(scraper) -> str:

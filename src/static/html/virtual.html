@@ -121,6 +121,14 @@
                     <div id="platform-sync-rows"></div>
                 </div>
 
+                <div class="form-row" id="start-time-row" style="display: none;">
+                    <label for="start-time">Start Time (Local)</label>
+                    <input type="time" id="start-time" class="vc-select">
+                    <div class="form-note">
+                        Leave blank to start immediately.
+                    </div>
+                </div>
+
                 <div class="info-warning" id="completion-warning" style="display: none;">
                     <div class="warning-text">You have already completed this virtual contest.</div>
                 </div>
@@ -155,6 +163,7 @@
                 </div>
                 <div class="contest-actions">
                     <a href="#" class="vc-button open-btn" id="open-contest-btn">Open Contest</a>
+                    <button class="vc-button cancel-btn" id="cancel-contest-btn" style="display: none;">Cancel Contest</button>
                     <button class="vc-button end-btn" id="end-contest-btn">End Contest</button>
                 </div>
             </div>
@@ -188,6 +197,7 @@
                 </div>
                 <div class="score-actions">
                     <button class="vc-button submit-btn" id="submit-scores-btn">Submit Scores</button>
+                    <button class="vc-button edit-btn" id="edit-scores-btn" style="display: none;">Edit Manually</button>
                 </div>
             </div>
         </div>

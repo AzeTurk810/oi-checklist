@@ -1,0 +1,12 @@
+- name: Troyangles
+  number: 1
+  links:
+      - https://qoj.ac/contest/2816/problem/15285
+- name: King Gruff
+  number: 2
+  links:
+      - https://qoj.ac/contest/2816/problem/15286
+- name: Warewolf
+  number: 3
+  links:
+      - https://qoj.ac/contest/2816/problem/15287

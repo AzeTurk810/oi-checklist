@@ -164,6 +164,7 @@ model ActiveVirtualContest {
   contestId Int
   startedAt DateTime @default(now())
   endedAt DateTime?
+  customDuration Int?
   autosynced Boolean @default(false)  
   score Float?
   perProblemScores Json?

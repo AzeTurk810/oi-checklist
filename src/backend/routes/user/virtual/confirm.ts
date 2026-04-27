@@ -29,7 +29,9 @@ export async function confirm(app: FastifyInstance) {
               include: {
                 problem: {
                   include: {
-                    userProblemsData: true
+                    userProblemsData: {
+                      where: { userId }
+                    }
                   }
                 }
               }

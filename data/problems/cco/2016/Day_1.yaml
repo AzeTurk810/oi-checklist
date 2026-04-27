@@ -1,0 +1,12 @@
+- name: Field Trip
+  number: 1
+  links:
+      - https://qoj.ac/contest/439/problem/2736
+- name: Splitting Hares
+  number: 2
+  links:
+      - https://qoj.ac/contest/439/problem/2737
+- name: Legends
+  number: 3
+  links:
+      - https://qoj.ac/contest/439/problem/2738

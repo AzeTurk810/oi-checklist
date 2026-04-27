@@ -11,12 +11,13 @@ export async function start(app: FastifyInstance) {
         token: { type: 'string' },
         autosynced: { type: 'boolean' },
         name: { type: 'string' },
+        startTime: { type: ['string', 'null'] },
         stage: { type: ['string', 'null'] }
       }
     }
   };
-  app.post<{ Body: { token: string, autosynced: boolean, name: string, stage?: string | null } }>('/start', { schema }, async (req) => {
-    const { token, autosynced, name, stage } = req.body;
+  app.post<{ Body: { token: string, autosynced: boolean, name: string, startTime?: string | null, stage?: string | null } }>('/start', { schema }, async (req) => {
+    const { token, autosynced, name, startTime, stage } = req.body;
     const session = await db.session.findUnique({ where: { id: token } });
     if (!session) {
       throw createError.Unauthorized('Invalid token');
@@ -38,7 +39,7 @@ export async function start(app: FastifyInstance) {
       data: {
         userId: session.userId,
         contestId: contest.id,
-        startedAt: new Date(),
+        startedAt: startTime ? new Date(startTime) : new Date(),
         autosynced,
       }
     });

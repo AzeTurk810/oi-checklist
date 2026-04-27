@@ -1,0 +1,12 @@
+- name: A Game with Grundy
+  number: 1
+  links:
+      - https://qoj.ac/contest/509/problem/2712
+- name: Exercise Deadlines
+  number: 2
+  links:
+      - https://qoj.ac/contest/509/problem/2713
+- name: Mountains and Valleys
+  number: 3
+  links:
+      - https://qoj.ac/contest/509/problem/2714
