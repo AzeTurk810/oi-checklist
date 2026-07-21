@@ -1,0 +1,22 @@
+name: EGOI 2026
+location: Cesenatico, Italy
+duration: 300
+website: https://egoi2026.it/
+link: https://qoj.ac/contest/3751
+problems:
+- source: egoi
+  year: 2026
+  number: 5
+- source: egoi
+  year: 2026
+  number: 6
+- source: egoi
+  year: 2026
+  number: 7
+- source: egoi
+  year: 2026
+  number: 8
+medalCutoffs:
+  gold: 290.0
+  silver: 266.0
+  bronze: 204.0

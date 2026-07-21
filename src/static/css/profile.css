@@ -138,6 +138,42 @@
     color: #333;
 }
 
+/* Streak item */
+.streak-item {
+    margin-top: 0.25rem;
+}
+
+.streak-value {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: #ff4500; /* Orange-red for fire */
+}
+
+.streak-icon {
+    font-size: 1.1rem;
+    animation: flame-flicker 2s infinite ease-in-out;
+}
+
+.max-streak-label {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #666;
+    margin-left: 0.25rem;
+}
+
+.dark-mode .max-streak-label {
+    color: #aaa;
+}
+
+@keyframes flame-flicker {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+    25% { transform: scale(1.1) rotate(-2deg); opacity: 1; }
+    50% { transform: scale(1.05) rotate(2deg); opacity: 0.95; }
+    75% { transform: scale(1.15) rotate(-1deg); opacity: 1; }
+}
+
 /* Follow button */
 .follow-button {
     background-color: #0177CC;

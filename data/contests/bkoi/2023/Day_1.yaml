@@ -1,0 +1,15 @@
+name: BKOI 2023
+location: Slovenia, Maribor
+duration: 300
+website: 
+link: https://qoj.ac/contest/2157
+problems:
+- source: bkoi
+  year: 2023
+  number: 1
+- source: bkoi
+  year: 2023
+  number: 2
+- source: bkoi
+  year: 2023
+  number: 3

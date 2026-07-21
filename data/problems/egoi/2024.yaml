@@ -15,7 +15,9 @@
   - https://qoj.ac/problem/9184
 - name: Garden Decorations
   number: 4
-  link: https://qoj.ac/contest/1764/problem/9185
+  links: 
+    - https://open.kattis.com/problems/gardendecorations
+    - https://qoj.ac/problem/9185
 - name: Circle Passing
   number: 5
   links:

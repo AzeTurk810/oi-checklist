@@ -6,15 +6,15 @@ link: https://qoj.ac/contest/1969
 problems:
 - source: ejoi
   year: 2021
-  number: 1
+  number: 4
   extra: Day 2
 - source: ejoi
   year: 2021
-  number: 2
+  number: 5
   extra: Day 2
 - source: ejoi
   year: 2021
-  number: 3
+  number: 6
   extra: Day 2
 medalCutoffs:
   gold: 196

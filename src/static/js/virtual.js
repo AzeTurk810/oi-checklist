@@ -53,7 +53,9 @@ function convertData(newData) {
       location: ac.contest.location ?? "",
       website: ac.contest.website ?? "",
       link: ac.contest.link ?? "",
-      ojuz_data: ac.submissions ?? ac.ojuz_data ?? []
+      ojuz_data: ac.submissions ?? ac.ojuz_data ?? [],
+      source: ac.contest.source ?? "",
+      year: ac.contest.year ?? null
     };
   }
 
@@ -80,7 +82,8 @@ function convertData(newData) {
   };
 
   if (activeContest) {
-    activeContest.problems = newData.contests.find(i => i.id == activeContest.id).problems;
+    const fullContest = newData.contests.find(i => i.id == activeContest.id);
+    activeContest.problems = fullContest ? fullContest.problems : [];
     result.active_contest = activeContest;
   }
 
@@ -711,6 +714,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Start timer with remaining time and capped elapsed time (in seconds precision)
       startTimerWithSeconds(remainingSeconds, cappedElapsedSeconds);
+
+      // Render problem links
+      renderActiveContestProblems(currentActiveContest);
     }
 
     // Don't return here - we still need to set up event listeners
@@ -973,6 +979,169 @@ document.addEventListener('DOMContentLoaded', async () => {
     const activeUsernames = await fetchActiveUsernamesForSync(sessionToken);
     renderPlatformSyncCard(lastProblemCount, platformIndexMap, activeUsernames);
   }
+
+  function getPlatformIcon(platform) {
+    const iconMap = {
+      'oj.uz': 'ojuz-logo.ico',
+      'codeforces.com': 'codeforces-icon.png',
+      'atcoder.jp': 'atcoder-icon.png',
+      'usaco.org': 'usaco-icon.png',
+      'dmoj.ca': 'dmoj-icon.png',
+      'szkopul.edu.pl': 'szkopul-icon.png',
+      'codebreaker.xyz': 'codebreaker-icon.ico',
+      'kilonova.ro': 'kilonova.png',
+      'eolymp.com': 'eolymp-icon.png',
+      'acmicpc.net': 'acmicpc-icon.png',
+      'codechef.com': 'codechef-icon.ico',
+      'codedrills.io': 'codedrills-icon.ico',
+      'qoj.ac': 'cms-icon.ico'
+    };
+
+    const icon = iconMap[platform] || 'dummy-icon.svg';
+    return `images/${icon}`;
+  }
+
+  function renderActiveContestProblems(contest) {
+    const problemsSection = document.getElementById('active-problems-section');
+    const problemList = document.getElementById('active-problem-list');
+    const platformOptions = document.getElementById('platform-options');
+    const selectedText = document.querySelector('.selected-text');
+
+    if (!contest || !contest.problems || contest.problems.length === 0) {
+      problemsSection.style.display = 'none';
+      return;
+    }
+
+    problemsSection.style.display = 'block';
+
+    // Find problem details from problemsData
+    const detailedProblems = contest.problems.map(prob => {
+      const source = prob.source || contest.source;
+      const year = prob.year || contest.year;
+
+      if (!source || !problemsData[source] || !problemsData[source][year]) return prob;
+      const detailed = problemsData[source][year].find(p => p.id === prob.problemId);
+      return { ...prob, ...detailed };
+    });
+
+    // Collect all platforms that have at least one link
+    const allPlatforms = new Set();
+    detailedProblems.forEach(p => {
+      if (p.links) {
+        Object.keys(p.links).forEach(plat => allPlatforms.add(plat));
+      } else if (p.link) {
+        allPlatforms.add(getPlatformFromLink(p.link));
+      }
+    });
+
+    const platformsList = Array.from(allPlatforms).sort();
+
+    // Populate dropdown
+    platformOptions.innerHTML = '';
+    platformsList.forEach(plat => {
+      const option = document.createElement('div');
+      option.className = 'platform-option-vc';
+
+      const icon = document.createElement('img');
+      icon.src = getPlatformIcon(plat);
+      icon.onerror = () => icon.src = 'images/dummy-icon.svg';
+
+      const name = document.createElement('span');
+      name.textContent = plat;
+
+      option.appendChild(icon);
+      option.appendChild(name);
+
+      option.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectPlatform(plat);
+        togglePlatformDropdown();
+      });
+
+      platformOptions.appendChild(option);
+    });
+
+    function selectPlatform(plat) {
+      selectedText.innerHTML = `<img src="${getPlatformIcon(plat)}" onerror="this.src='images/dummy-icon.svg'"> <span>${plat}</span>`;
+      renderProblemLinks(plat);
+    }
+
+    function renderProblemLinks(plat) {
+      problemList.innerHTML = '';
+      detailedProblems.forEach((p, idx) => {
+        const linkItem = document.createElement('a');
+        linkItem.className = 'problem-link-item-vc';
+        linkItem.target = '_blank';
+
+        let url = '#';
+        if (p.links && p.links[plat]) {
+          url = p.links[plat];
+        } else if (getPlatformFromLink(p.link) === plat) {
+          url = p.link;
+        } else {
+          // Fallback to default link if selected platform doesn't have one
+          url = chooseProblemUrl(p) || '#';
+        }
+
+        linkItem.href = url;
+        if (url === '#') {
+          linkItem.classList.add('disabled-link-vc');
+          linkItem.style.opacity = '0.5';
+          linkItem.style.pointerEvents = 'none';
+        }
+
+        linkItem.innerHTML = `
+          <span class="problem-index-vc">Problem ${idx + 1}</span>
+          <span class="problem-name-vc">${p.name || 'Problem'}</span>
+        `;
+
+        problemList.appendChild(linkItem);
+      });
+    }
+
+    // Default selection
+    if (platformsList.length > 0) {
+      const defaultPlat = platformsList.find(p => p === 'oj.uz') || platformsList[0];
+      selectPlatform(defaultPlat);
+    } else {
+        // Even if no platforms found, show problem names if possible
+        problemList.innerHTML = '';
+        detailedProblems.forEach((p, idx) => {
+          const linkItem = document.createElement('a');
+          linkItem.className = 'problem-link-item-vc';
+          linkItem.target = '_blank';
+          linkItem.href = p.link || '#';
+          if (linkItem.href === '#') {
+            linkItem.classList.add('disabled-link-vc');
+            linkItem.style.opacity = '0.5';
+            linkItem.style.pointerEvents = 'none';
+          }
+          linkItem.innerHTML = `
+            <span class="problem-index-vc">Problem ${idx + 1}</span>
+            <span class="problem-name-vc">${p.name || 'Problem'}</span>
+          `;
+          problemList.appendChild(linkItem);
+        });
+        selectedText.innerHTML = `<span>Problems</span>`;
+    }
+  }
+
+  function togglePlatformDropdown() {
+    const options = document.getElementById('platform-options');
+    options.classList.toggle('select-hide-vc');
+  }
+
+  document.getElementById('platform-selector-dropdown')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    togglePlatformDropdown();
+  });
+
+  window.addEventListener('click', () => {
+    const options = document.getElementById('platform-options');
+    if (options && !options.classList.contains('select-hide-vc')) {
+        options.classList.add('select-hide-vc');
+    }
+  });
 
   // Add change listener for ojuz-autotrack checkbox (after DOM elements exist)
   const autoTrackToggle = document.getElementById('ojuz-autotrack');
@@ -1448,6 +1617,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Start timer with actual contest duration (after currentActiveContest is set)
     startTimer(contest.duration_minutes);
+
+    // Render problem links
+    renderActiveContestProblems(currentActiveContest);
   });
 
   // Handle end contest button

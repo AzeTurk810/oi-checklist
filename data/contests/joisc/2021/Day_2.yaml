@@ -1,0 +1,15 @@
+name: JOISC 2021
+location: Komaba, Tokyo
+duration: 300
+website: https://contests.ioi-jp.org/joi-sp-2021/index-en
+link: https://oj.uz/problems/source/joisc2021day2
+problems:
+- source: joisc
+  year: 2021
+  number: 4
+- source: joisc
+  year: 2021
+  number: 5
+- source: joisc
+  year: 2021
+  number: 6

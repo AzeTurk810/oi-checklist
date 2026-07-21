@@ -1,9 +1,9 @@
 - name: BinSearch
-  number: 1
+  number: 4
   link: https://qoj.ac/contest/1969/problem/8099
 - name: Dungeons
-  number: 2
+  number: 5
   link: https://qoj.ac/contest/1969/problem/8100
 - name: Waterfront
-  number: 3
+  number: 6
   link: https://qoj.ac/contest/1969/problem/8101

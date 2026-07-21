@@ -196,7 +196,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Followers
         document.getElementById('profile-followers').textContent = data.followers;
 
-        // Stats
+        // Streaks
+        if (data.streaks) {
+            document.getElementById('streak-item').style.display = 'flex';
+            document.getElementById('current-streak').textContent = data.streaks.current;
+            document.getElementById('max-streak').textContent = data.streaks.max;
+        } else {
+            document.getElementById('streak-item').style.display = 'none';
+        }
+
+        // Identities
+
         const { solved, progress, failed } = data.solveStats;
         
         // Update stored stats
