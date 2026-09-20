@@ -1,0 +1,15 @@
+- name: Automata
+  number: 1
+  links:
+    - https://qoj.ac/contest/3950/problem/19048
+    - https://eolymp.com/compete/ejoi2026-2/problems/1
+- name: Elevator
+  number: 2
+  links: 
+    - https://qoj.ac/contest/3950/problem/19049
+    - https://eolymp.com/compete/ejoi2026-2/problems/2
+- name: Teamfulness
+  number: 3
+  links: 
+    - https://qoj.ac/contest/3950/problem/19050
+    - https://eolymp.com/compete/ejoi2026-2/problems/3

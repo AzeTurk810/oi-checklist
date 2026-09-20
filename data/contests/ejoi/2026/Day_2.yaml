@@ -1,0 +1,19 @@
+name: EJOI 2026
+location: Lithuania
+duration: 240
+website: 
+link: https://eolymp.com/contests/ejoi2026-2
+problems:
+- source: ejoi
+  year: 2026
+  number: 1
+  extra: Day 2
+- source: ejoi
+  year: 2026
+  number: 2
+  extra: Day 2
+- source: ejoi
+  year: 2026
+  number: 3
+  extra: Day 2
+
