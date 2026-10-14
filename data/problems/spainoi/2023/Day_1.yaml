@@ -1,0 +1,15 @@
+- name: Flechas
+  number: 1
+  link: https://codeforces.com/gym/104604/problem/A
+- name: Lightcycles
+  number: 2
+  link: https://codeforces.com/gym/104604/problem/B
+- name: Multiplodivisor
+  number: 3
+  link: https://codeforces.com/gym/104604/problem/C
+- name: Segendinese
+  number: 4
+  link: https://codeforces.com/gym/104604/problem/D
+- name: Sueno
+  number: 5
+  link: https://codeforces.com/gym/104604/problem/E
