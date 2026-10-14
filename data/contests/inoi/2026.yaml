@@ -1,0 +1,15 @@
+name: INOI 2026
+location: India
+duration: 180
+website: 
+problems:
+- source: inoi
+  year: 2026
+  number: 1
+- source: inoi
+  year: 2026
+  number: 2
+- source: inoi
+  year: 2026
+  number: 3
+

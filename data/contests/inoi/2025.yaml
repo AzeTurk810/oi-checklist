@@ -1,0 +1,14 @@
+name: INOI 2025
+location: India
+duration: 180
+website: 
+problems:
+- source: inoi
+  year: 2025
+  number: 1
+- source: inoi
+  year: 2025
+  number: 2
+- source: inoi
+  year: 2025
+  number: 3
